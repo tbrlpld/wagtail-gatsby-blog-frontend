@@ -5,3 +5,10 @@
  */
 
 // You can delete this file if you're not using it
+const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
+
+exports.createPages = ({ graphql, actions }) => {
+  return createWagtailPages({
+    'home.HomePage': 'template/home.js'
+  }, graphql, actions, [])
+}
