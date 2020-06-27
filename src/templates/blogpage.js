@@ -54,8 +54,6 @@ function ConditionalGalleryImage (props) {
 export default ({ data }) => {
   const page = data.wagtail.blogPage
 
-  console.log(page.galleryImages[0].image.src)
-
   return (
     <article>
       <h1>{page.title}</h1>
