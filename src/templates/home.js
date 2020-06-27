@@ -7,15 +7,19 @@ export default ({ data }) => {
   return (
     <div>
       <h1>{page.title}</h1>
+      <div dangerouslySetInnerHTML={{ __html: page.body }} />
     </div>
   )
 }
 
 export const query = graphql`
-  query($slug: String) {
+  query {
     wagtail {
-      page (slug: $slug) {
-        title
+      page(slug: "home") {
+        ... on HomePage {
+          title
+          body
+        }
       }
     }
   }
