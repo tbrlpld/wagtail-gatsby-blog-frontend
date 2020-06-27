@@ -54,32 +54,47 @@ function ConditionalGalleryImage (props) {
   }
 }
 
-function StreamFieldBlock (props) {
+function stripWrappingDivFromRawRichText (rawRichText) {
+  if (rawRichText.startsWith('<div class="rich-text">')) {
+    return rawRichText.slice(23, -6)
+  } else {
+    return rawRichText
+  }
+}
+
+function RichTextField (props) {
+  const rawRichText = props.rawRichText
+  const cleanedRichText = stripWrappingDivFromRawRichText(rawRichText)
+  return (
+    <section dangerouslySetInnerHTML={{ __html: cleanedRichText }} />
+  )
+}
+
+function StreamField (props) {
   const streamField = props.streamField
   console.log(streamField)
 
-  const block = []
+  const fields = []
 
   for (const item of streamField) {
     switch (item.field) {
       case 'paragraph': {
-        block.push(<li>{item.rawValue}</li>)
+        fields.push(<li><RichTextField rawRichText={item.rawValue} /></li>)
         break
       }
       case 'image': {
-        block.push(<li><img src={item.image.rendition.src} alt={item.image.title} /></li>)
+        fields.push(<li><img src={item.image.rendition.src} alt={item.image.title} /></li>)
         break
       }
       case 'heading': {
-        block.push(<li><h3>{item.rawValue}</h3></li>)
+        fields.push(<li><h3>{item.rawValue}</h3></li>)
         break
       }
     }
   }
-  console.log(block)
   return (
     <ul>
-      {block}
+      {fields}
     </ul>
   )
 }
@@ -93,7 +108,7 @@ export default ({ data }) => {
       <p><em>{page.intro}</em></p>
       <ConditionalGalleryImage galleryImage={page.galleryImages[0]} />
       <section dangerouslySetInnerHTML={{ __html: page.body }} />
-      <StreamFieldBlock streamField={page.freeformbody} />
+      <StreamField streamField={page.freeformbody} />
     </article>
   )
 }
