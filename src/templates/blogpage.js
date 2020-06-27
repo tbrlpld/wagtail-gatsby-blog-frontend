@@ -1,6 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 
+import RichTextField from '../components/richtext'
+
 export const query = graphql`
 query ($slug: String) {
   wagtail {
@@ -54,22 +56,6 @@ function ConditionalGalleryImage (props) {
   }
 }
 
-function stripWrappingDivFromRawRichText (rawRichText) {
-  if (rawRichText.startsWith('<div class="rich-text">')) {
-    return rawRichText.slice(23, -6)
-  } else {
-    return rawRichText
-  }
-}
-
-function RichTextField (props) {
-  const rawRichText = props.rawRichText
-  const cleanedRichText = stripWrappingDivFromRawRichText(rawRichText)
-  return (
-    <section dangerouslySetInnerHTML={{ __html: cleanedRichText }} />
-  )
-}
-
 function StreamField (props) {
   const streamField = props.streamField
   console.log(streamField)
@@ -107,7 +93,7 @@ export default ({ data }) => {
       <h1>{page.title}</h1>
       <p><em>{page.intro}</em></p>
       <ConditionalGalleryImage galleryImage={page.galleryImages[0]} />
-      <section dangerouslySetInnerHTML={{ __html: page.body }} />
+      <RichTextField rawRichText={page.body} />
       <StreamField streamField={page.freeformbody} />
     </article>
   )
