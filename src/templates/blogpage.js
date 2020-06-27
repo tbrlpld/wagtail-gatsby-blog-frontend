@@ -19,7 +19,7 @@ query ($slug: String) {
         caption
         image {
           title
-          rendition (width: 200) {
+          rendition(width: 200) {
             src
           }
         }
@@ -30,7 +30,10 @@ query ($slug: String) {
         rawValue
         ... on ImageChooserBlock {
           image {
-            src
+            title
+            rendition(width: 200) {
+              src
+            }
           }
         }
       }
@@ -51,6 +54,36 @@ function ConditionalGalleryImage (props) {
   }
 }
 
+function StreamFieldBlock (props) {
+  const streamField = props.streamField
+  console.log(streamField)
+
+  const block = []
+
+  for (const item of streamField) {
+    switch (item.field) {
+      case 'paragraph': {
+        block.push(<li>{item.rawValue}</li>)
+        break
+      }
+      case 'image': {
+        block.push(<li><img src={item.image.rendition.src} alt={item.image.title} /></li>)
+        break
+      }
+      case 'heading': {
+        block.push(<li><h3>{item.rawValue}</h3></li>)
+        break
+      }
+    }
+  }
+  console.log(block)
+  return (
+    <ul>
+      {block}
+    </ul>
+  )
+}
+
 export default ({ data }) => {
   const page = data.wagtail.blogPage
 
@@ -59,9 +92,8 @@ export default ({ data }) => {
       <h1>{page.title}</h1>
       <p><em>{page.intro}</em></p>
       <ConditionalGalleryImage galleryImage={page.galleryImages[0]} />
-      <section>
-        <div dangerouslySetInnerHTML={{ __html: page.body }} />
-      </section>
+      <section dangerouslySetInnerHTML={{ __html: page.body }} />
+      <StreamFieldBlock streamField={page.freeformbody} />
     </article>
   )
 }
