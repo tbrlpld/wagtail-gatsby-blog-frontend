@@ -13,9 +13,9 @@ export default ({ data }) => {
 }
 
 export const query = graphql`
-  query {
+  query($slug: String ) {
     wagtail {
-      page(slug: "home") {
+      page(slug: $slug) {
         ... on HomePage {
           title
           body

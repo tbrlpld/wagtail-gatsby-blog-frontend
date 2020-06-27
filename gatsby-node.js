@@ -9,6 +9,7 @@ const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
 
 exports.createPages = ({ graphql, actions }) => {
   return createWagtailPages({
-    'home.HomePage': 'templates/home.js'
+    'home.HomePage': 'templates/home.js',
+    'blog.BlogPage': 'templates/blogpage.js'
   }, graphql, actions, [])
 }
