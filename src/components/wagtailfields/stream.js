@@ -1,6 +1,6 @@
 import React from 'react'
 
-import RichTextField from 'richtext'
+import RichTextField from './richtext'
 
 export default function StreamField (props) {
   const streamField = props.streamField
@@ -20,6 +20,9 @@ export default function StreamField (props) {
       }
       case 'heading': {
         fields.push(<li><h3>{item.rawValue}</h3></li>)
+        break
+      }
+      default: {
         break
       }
     }

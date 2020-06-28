@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 
-import RichTextField from '../components/richtext'
-import StreamField from '../components/stream'
+import RichTextField from '../components/wagtailfields/richtext'
+import StreamField from '../components/wagtailfields/stream'
 
 export const query = graphql`
 query ($slug: String) {
