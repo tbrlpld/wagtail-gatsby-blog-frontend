@@ -1,25 +1,27 @@
 import React from 'react'
 
 import RichTextField from './richtext'
+import Image from './image'
 
 export default function StreamField (props) {
   const streamField = props.streamField
-  console.log(streamField)
 
   const fields = []
 
   for (const item of streamField) {
     switch (item.field) {
       case 'paragraph': {
-        fields.push(<li><RichTextField rawRichText={item.rawValue} /></li>)
+        fields.push(<RichTextField key={item.id} rawRichText={item.rawValue} />)
         break
       }
       case 'image': {
-        fields.push(<li><img src={item.image.rendition.src} alt={item.image.title} /></li>)
+        fields.push(
+          <Image key={item.id} id={item.image.id} />
+        )
         break
       }
       case 'heading': {
-        fields.push(<li><h3>{item.rawValue}</h3></li>)
+        fields.push(<h3 key={item.id}>{item.rawValue}</h3>)
         break
       }
       default: {
@@ -28,8 +30,8 @@ export default function StreamField (props) {
     }
   }
   return (
-    <ul>
+    <section>
       {fields}
-    </ul>
+    </section>
   )
 }
