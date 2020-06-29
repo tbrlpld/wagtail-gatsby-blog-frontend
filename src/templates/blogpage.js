@@ -33,10 +33,8 @@ query ($slug: String) {
         rawValue
         ... on ImageChooserBlock {
           image {
+            id
             title
-            rendition(width: 200) {
-              src
-            }
           }
         }
       }
