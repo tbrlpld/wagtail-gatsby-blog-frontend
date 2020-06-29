@@ -16,7 +16,7 @@ export default function StreamField (props) {
       }
       case 'image': {
         fields.push(
-          <Image key={item.id} id={item.image.id} />
+          <Image key={item.id} sizes={item.image.sizes} src={item.image.src} />
         )
         break
       }

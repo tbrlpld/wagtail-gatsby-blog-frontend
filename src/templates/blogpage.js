@@ -35,6 +35,9 @@ query ($slug: String) {
           image {
             id
             title
+            sizes
+            src
+            srcSet (sizes: [2000, 1000, 500])
           }
         }
       }
