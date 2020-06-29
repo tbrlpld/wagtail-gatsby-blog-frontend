@@ -37,7 +37,7 @@ query ($slug: String) {
             title
             sizes
             src
-            srcSet (sizes: [2000, 1000, 500])
+            srcSet (sizes: [1500, 1000, 500])
           }
         }
       }
