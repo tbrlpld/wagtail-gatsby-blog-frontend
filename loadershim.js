@@ -1,3 +1,3 @@
 global.__loader = {
-  enqueue = jest.fn(),
+  enqueue: jest.fn(),
 }
