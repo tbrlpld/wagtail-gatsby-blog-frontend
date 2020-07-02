@@ -1,6 +1,6 @@
 import React from 'react'
 
-function stripWrappingDivFromRawRichText (rawRichText) {
+export function stripWrappingDivFromRawRichText (rawRichText) {
   if (rawRichText.startsWith('<div class="rich-text">')) {
     return rawRichText.slice(23, -6)
   } else {
