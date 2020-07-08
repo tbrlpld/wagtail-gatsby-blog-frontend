@@ -12,7 +12,7 @@
     "gatsby-plugin-react-helmet": "^3.3.5",
     "gatsby-plugin-sharp": "^2.6.13",
     "gatsby-source-filesystem": "^2.3.13",
-    "gatsby-source-wagtail": "git+ssh://git@github.com/NathHorrigan/gatsby-source-wagtail.git",
+    "gatsby-source-wagtail": "^0.5.1",
     "gatsby-transformer-sharp": "^2.5.6",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
