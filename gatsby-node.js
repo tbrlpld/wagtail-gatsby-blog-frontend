@@ -11,6 +11,7 @@ exports.createPages = ({ graphql, actions }) => {
   return createWagtailPages({
     'home.HomePage': 'templates/home.js',
     'blog.BlogPage': 'templates/blogpage.js',
-    'blog.BlogIndexPage': 'templates/blogindexpage.jsx'
+    'blog.BlogIndexPage': 'templates/blogindexpage.jsx',
+    'blog.BlogCategory': 'templates/blogcategory.jsx'
   }, graphql, actions, [])
 }
