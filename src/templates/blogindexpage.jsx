@@ -13,9 +13,7 @@ export const query = graphql`
           searchDescription
           showInMenus
           children(order: "-first_published_at",) {
-            id
-            title
-            url
+            ...BlogPageInfo
           }
           contentType
           pageType
