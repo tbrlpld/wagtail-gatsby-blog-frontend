@@ -28,7 +28,7 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <h1>Tag <TagPill slug={tag.slug} name={tag.name} /></h1>
+      <h1>Tag <small><TagPill slug={tag.slug} name={tag.name} /></small></h1>
       <ArticleList articles={articles} />
     </Layout>
   )

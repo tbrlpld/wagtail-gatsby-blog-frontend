@@ -6,5 +6,10 @@ export const blogPageFragment = graphql`
     slug
     url
     title
+    tags {
+      id
+      slug
+      name
+    }
   }
 `
