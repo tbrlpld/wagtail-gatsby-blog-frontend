@@ -1,6 +1,8 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 
+import Layout from '../components/layout'
+
 export const query = graphql`
   query ($slug: String) {
     wagtail {
@@ -31,10 +33,10 @@ export default ({ data }) => {
   ))
 
   return (
-    <>
+    <Layout>
       <h1>{category.title}</h1>
       <div dangerouslySetInnerHTML={{ __html: category.intro }} />
       {children.length > 0 ? <ul>{children}</ul> : <div>Sorry, there are no articles in this category.</div>}
-    </>
+    </Layout>
   )
 }

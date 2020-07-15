@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 
+import Layout from '../components/layout'
 import RichTextField from '../components/wagtailfields/richtext'
 import StreamField from '../components/wagtailfields/stream'
 
@@ -62,12 +63,14 @@ export default ({ data }) => {
   const page = data.wagtail.blogPage
 
   return (
-    <article>
-      <h1>{page.title}</h1>
-      <p><em>{page.intro}</em></p>
-      <ConditionalGalleryImage galleryImage={page.galleryImages[0]} />
-      <RichTextField rawRichText={page.body} />
-      <StreamField streamField={page.freeformbody} />
-    </article>
+    <Layout>
+      <article>
+        <h1>{page.title}</h1>
+        <p><em>{page.intro}</em></p>
+        <ConditionalGalleryImage galleryImage={page.galleryImages[0]} />
+        <RichTextField rawRichText={page.body} />
+        <StreamField streamField={page.freeformbody} />
+      </article>
+    </Layout>
   )
 }

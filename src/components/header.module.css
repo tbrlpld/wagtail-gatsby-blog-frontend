@@ -1,0 +1,24 @@
+header {
+  border-bottom: 1px solid hsl(0, 0%, 85%);
+  margin-bottom: 1em; 
+
+  font-family: sans-serif;
+  font-weight: bold
+}
+
+header a {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+header > nav {
+  display: inline-block;
+  margin: 1rem;
+}
+
+.siteTitle {
+  display: inline-block;
+  margin: 1rem;
+
+  font-size: x-large;
+}
