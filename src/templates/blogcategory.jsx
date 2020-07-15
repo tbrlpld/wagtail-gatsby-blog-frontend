@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 
 import Layout from '../components/layout'
+import ArticleList from '../components/articlelist'
 
 export const query = graphql`
   query ($slug: String) {
@@ -28,15 +29,13 @@ export const query = graphql`
 
 export default ({ data }) => {
   const category = data.wagtail.page
-  const children = category.blogpages.map((child) => (
-    <li key={child.url}><Link to={child.url}>{child.title}</Link></li>
-  ))
+  const articles = category.blogpages
 
   return (
     <Layout>
       <h1>{category.title}</h1>
       <div dangerouslySetInnerHTML={{ __html: category.intro }} />
-      {children.length > 0 ? <ul>{children}</ul> : <div>Sorry, there are no articles in this category.</div>}
+      <ArticleList articles={articles} />
     </Layout>
   )
 }
