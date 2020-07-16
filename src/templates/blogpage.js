@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
 import Layout from '../components/layout'
 import RichTextField from '../components/wagtailfields/richtext'
@@ -32,10 +33,13 @@ query ($slug: String) {
       galleryImages {
         id
         caption
-        image {
-          title
-          rendition(width: 200) {
-            src
+        image  {
+          imageFile {
+            childImageSharp {
+              fluid(maxWidth: 800, grayscale: true) {
+                ...GatsbyImageSharpFluid
+              }
+            }
           }
         }
       }
@@ -44,6 +48,7 @@ query ($slug: String) {
         field
         rawValue
         ... on ImageChooserBlock {
+          blockType
           image {
             id
             title
@@ -68,7 +73,7 @@ function ConditionalGalleryImage (props) {
 
   if (galleryImage !== undefined) {
     return (
-      <img src={galleryImage.image.rendition.src} alt={galleryImage.caption} />
+      <Img fluid={galleryImage.image.imageFile.childImageSharp.fluid} />
     )
   } else {
     return null
@@ -77,6 +82,8 @@ function ConditionalGalleryImage (props) {
 
 export default ({ data }) => {
   const page = data.wagtail.blogPage
+
+  console.log(page.freeformbody)
 
   return (
     <Layout>
