@@ -2,7 +2,6 @@ import React from 'react'
 import Img from 'gatsby-image'
 
 import RichTextField from './richtext'
-import Image from './image'
 
 export default function StreamField (props) {
   const streamField = props.streamField
