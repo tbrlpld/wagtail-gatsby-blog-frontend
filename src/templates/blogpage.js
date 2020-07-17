@@ -87,17 +87,6 @@ function HeroImage (props) {
 export default ({ data }) => {
   const page = data.wagtail.blogPage
 
-  console.log(page)
-  console.log(page.freeformbody)
-
-  const imageBlock = page.freeformbody.filter((item) => {
-    if (item.field === 'image') {
-      return true
-    }
-    return false
-  })[0]
-  console.log(imageBlock)
-
   return (
     <Layout>
       <article>
