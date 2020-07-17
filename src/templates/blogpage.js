@@ -75,7 +75,7 @@ query ($slug: String) {
 function HeroImage (props) {
   const galleryImages = props.galleryImages
 
-  if (galleryImages !== undefined) {
+  if (galleryImages && galleryImages.length > 0) {
     return (
       <Img fluid={galleryImages[0].image.imageFile.childImageSharp.fluid} />
     )
