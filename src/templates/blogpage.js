@@ -20,52 +20,54 @@ const ArticleTags = ({ tags }) => {
 export const query = graphql`
 query ($slug: String) {
   wagtail {
-    blogPage(slug: $slug) {
-      id
-      title
-      intro
-      author
-      firstPublishedAt
-      live
-      slug
-      url
-      body
-      galleryImages {
+    page(slug: $slug) {
+      ... on BlogPage {
         id
-        caption
-        image  {
-          src  # This is needed to have two imageFile fields in one query
-          imageFile {
-            childImageSharp {
-              fluid(maxWidth: 800, grayscale: true) {
-                ...GatsbyImageSharpFluid
+        title
+        intro
+        author
+        firstPublishedAt
+        live
+        slug
+        url
+        body
+        galleryImages {
+          id
+          caption
+          image  {
+            src  # This is needed to have two imageFile fields in one query
+            imageFile {
+              childImageSharp {
+                fluid(maxWidth: 800, grayscale: true) {
+                  ...GatsbyImageSharpFluid
+                }
               }
             }
           }
         }
-      }
-      freeformbody {
-        id
-        field
-        rawValue
-#        ... on ImageChooserBlock {
-#          image {
-#            src  # This is needed to have two imageFile fields in one query
-#            imageFile {
-#              id
-#              childImageSharp {
-#                fluid {
-#                  ...GatsbyImageSharpFluid
-#                }
-#              }
-#            }
-#          }
-#        }
-      }
-      tags {
-        id
-        slug
-        name
+        freeformbody {
+          id
+          field
+          rawValue
+  #        ... on ImageChooserBlock {
+  #          image {
+  #            src  # This is needed to have two imageFile fields in one query
+  #            imageFile {
+  #              id
+  #              childImageSharp {
+  #                fluid {
+  #                  ...GatsbyImageSharpFluid
+  #                }
+  #              }
+  #            }
+  #          }
+  #        }
+        }
+        tags {
+          id
+          slug
+          name
+        }
       }
     }
   }
@@ -85,7 +87,7 @@ function HeroImage (props) {
 }
 
 export default ({ data }) => {
-  const page = data.wagtail.blogPage
+  const page = data.wagtail.page
 
   return (
     <Layout>
@@ -95,7 +97,7 @@ export default ({ data }) => {
         <p><em>{page.intro}</em></p>
         <HeroImage galleryImages={page.galleryImages} />
         <RichTextField rawRichText={page.body} />
-        {/*<StreamField streamField={page.freeformbody} />*/}
+        {/* <StreamField streamField={page.freeformbody} /> */}
       </article>
     </Layout>
   )
