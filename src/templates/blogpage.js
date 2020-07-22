@@ -35,7 +35,6 @@ query ($slug: String) {
           id
           caption
           image  {
-            src  # This is needed to have two imageFile fields in one query
             imageFile {
               childImageSharp {
                 fluid(maxWidth: 800, grayscale: true) {
@@ -49,19 +48,6 @@ query ($slug: String) {
           id
           field
           rawValue
-  #        ... on ImageChooserBlock {
-  #          image {
-  #            src  # This is needed to have two imageFile fields in one query
-  #            imageFile {
-  #              id
-  #              childImageSharp {
-  #                fluid {
-  #                  ...GatsbyImageSharpFluid
-  #                }
-  #              }
-  #            }
-  #          }
-  #        }
         }
         tags {
           id
@@ -97,7 +83,7 @@ export default ({ data }) => {
         <p><em>{page.intro}</em></p>
         <HeroImage galleryImages={page.galleryImages} />
         <RichTextField rawRichText={page.body} />
-        {/* <StreamField streamField={page.freeformbody} /> */}
+        <StreamField streamField={page.freeformbody} />
       </article>
     </Layout>
   )
