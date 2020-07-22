@@ -59,7 +59,7 @@ export default function StreamField (props) {
       }
       case 'image': {
         fields.push(
-          <StreamImage imageRawValue={item.rawValue} />
+          <StreamImage key={item.id} imageRawValue={item.rawValue} />
         )
         break
       }
