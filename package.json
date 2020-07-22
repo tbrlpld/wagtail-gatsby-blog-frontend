@@ -46,5 +46,8 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
+  "globals": {
+    "jest": true
   }
 }
