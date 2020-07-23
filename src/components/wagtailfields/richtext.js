@@ -13,7 +13,6 @@ import cheerio from 'cheerio'
 function richTextBlocksToComponents (richTextBlocks = []) {
   const processedBlocks = []
   richTextBlocks.forEach((block, index) => {
-    console.log(index, block)
     if (block.type === 'tag') {
       const childrenComponents = richTextBlocksToComponents(block.children)
       switch (block.name) {
@@ -32,6 +31,12 @@ function richTextBlocksToComponents (richTextBlocks = []) {
         case 'h4':
           processedBlocks.push(<h4 key={index}>{childrenComponents}</h4>)
           break
+        case 'h5':
+          processedBlocks.push(<h5 key={index}>{childrenComponents}</h5>)
+          break
+        case 'h6':
+          processedBlocks.push(<h6 key={index}>{childrenComponents}</h6>)
+          break
         case 'ol':
           processedBlocks.push(<ol key={index}>{childrenComponents}</ol>)
           break
@@ -47,7 +52,11 @@ function richTextBlocksToComponents (richTextBlocks = []) {
         case 'br':
           processedBlocks.push(<br key={index} />)
           break
+        // case 'embed':
+        //   console.log('Ignoring embedded image or video')
+        //   break
         default:
+          console.log(index, block)
           processedBlocks.push(<>{'<' + block.name + '>'}{childrenComponents}{'</' + block.name + '>'}</>)
           break
       }
