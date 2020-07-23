@@ -1,14 +1,7 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import cheerio from 'cheerio'
 
-// export function stripWrappingDivFromRawRichText (rawRichText) {
-//   if (rawRichText.startsWith('<div class="rich-text">')) {
-//     return rawRichText.slice(23, -6)
-//   } else {
-//     return rawRichText
-//   }
-// }
+import WagtailLink from './wagtaillink'
 
 function richTextBlocksToComponents (richTextBlocks = []) {
   const processedBlocks = []
@@ -73,9 +66,12 @@ function richTextBlocksToComponents (richTextBlocks = []) {
         case 'code':
           processedBlocks.push(<code key={index}>{childrenComponents}</code>)
           break
-        // case 'embed':
-        //   console.log('Ignoring embedded image or video')
-        //   break
+        case 'a':
+          processedBlocks.push(<WagtailLink key={index} cheerioBlock={block}>{childrenComponents}</WagtailLink>)
+          break
+        case 'embed':
+          console.log('Ignoring embedded image or video')
+          break
         default:
           console.log(index, block)
           processedBlocks.push(<>{'<' + block.name + '>'}{childrenComponents}{'</' + block.name + '>'}</>)
@@ -93,28 +89,8 @@ export default function RichTextField (props) {
 
   const $ = cheerio.load(rawRichText)
   const rawRichTextBlocks = $('body').children().toArray()
-  console.log(rawRichText)
-  console.log(rawRichTextBlocks)
 
   const richTextComponents = richTextBlocksToComponents(rawRichTextBlocks)
-
-  // rawRichTextBlocks.forEach((block, index) => {
-  //   console.log(block)
-  //   block.children.forEach((subblock, index) => console.log(subblock))
-  //   richTextBlocks.push(
-  //     <div key={index} dangerouslySetInnerHTML={{ __html: $.html(block) }} />
-  //   )
-  // })
-
-  // const links = $('a[linktype=page]').toArray()
-  // console.log(links)
-  // links.forEach((link) => {
-  //   link.name = 'Link'
-  //   link.attribs.to = '/'
-  // })
-  // console.log(links)
-
-  // const newHTML = $('body').html()
 
   return (
     <>
