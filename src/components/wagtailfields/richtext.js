@@ -46,11 +46,32 @@ function richTextBlocksToComponents (richTextBlocks = []) {
         case 'li':
           processedBlocks.push(<li key={index}>{childrenComponents}</li>)
           break
+        case 'blockquote':
+          processedBlocks.push(<blockquote key={index}>{childrenComponents}</blockquote>)
+          break
         case 'hr':
           processedBlocks.push(<hr key={index} />)
           break
         case 'br':
           processedBlocks.push(<br key={index} />)
+          break
+        case 'b':
+          processedBlocks.push(<strong key={index}>{childrenComponents}</strong>)
+          break
+        case 'i':
+          processedBlocks.push(<em key={index}>{childrenComponents}</em>)
+          break
+        case 'sup':
+          processedBlocks.push(<sup key={index}>{childrenComponents}</sup>)
+          break
+        case 'sub':
+          processedBlocks.push(<sub key={index}>{childrenComponents}</sub>)
+          break
+        case 's':
+          processedBlocks.push(<s key={index}>{childrenComponents}</s>)
+          break
+        case 'code':
+          processedBlocks.push(<code key={index}>{childrenComponents}</code>)
           break
         // case 'embed':
         //   console.log('Ignoring embedded image or video')
