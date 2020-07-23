@@ -10,21 +10,47 @@ import cheerio from 'cheerio'
 //   }
 // }
 
+function richTextBlocksToComponents (richTextBlocks = []) {
+  const processedBlocks = []
+  richTextBlocks.forEach((block, index) => {
+    console.log(index, block)
+    if (block.type === 'tag') {
+      const childrenComponents = richTextBlocksToComponents(block.children)
+      switch (block.name) {
+        case 'div':
+          processedBlocks.push(<div key={index}>{childrenComponents}</div>)
+          break
+        case 'p':
+          processedBlocks.push(<p key={index}>{childrenComponents}</p>)
+          break
+        default:
+          processedBlocks.push(<>{'<' + block.name + '>'}{childrenComponents}{'</' + block.name + '>'}</>)
+          break
+      }
+    } else if (block.type === 'text') {
+      processedBlocks.push(block.data)
+    }
+  })
+  return processedBlocks
+}
+
 export default function RichTextField (props) {
   const rawRichText = props.rawRichText
 
-  const richTextBlocks = []
-
   const $ = cheerio.load(rawRichText)
-  const rawRichTextBlocks = $('body').children()
+  const rawRichTextBlocks = $('body').children().toArray()
+  console.log(rawRichText)
   console.log(rawRichTextBlocks)
 
-  rawRichTextBlocks.each((index, block) => {
-    console.log(block)
-    richTextBlocks.push(
-      <div key={index} dangerouslySetInnerHTML={{ __html: $.html(block) }} />
-    )
-  })
+  const richTextComponents = richTextBlocksToComponents(rawRichTextBlocks)
+
+  // rawRichTextBlocks.forEach((block, index) => {
+  //   console.log(block)
+  //   block.children.forEach((subblock, index) => console.log(subblock))
+  //   richTextBlocks.push(
+  //     <div key={index} dangerouslySetInnerHTML={{ __html: $.html(block) }} />
+  //   )
+  // })
 
   // const links = $('a[linktype=page]').toArray()
   // console.log(links)
@@ -38,7 +64,7 @@ export default function RichTextField (props) {
 
   return (
     <>
-      {richTextBlocks}
+      {richTextComponents}
     </>
   )
 }
