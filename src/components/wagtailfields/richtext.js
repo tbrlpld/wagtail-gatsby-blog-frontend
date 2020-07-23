@@ -23,6 +23,30 @@ function richTextBlocksToComponents (richTextBlocks = []) {
         case 'p':
           processedBlocks.push(<p key={index}>{childrenComponents}</p>)
           break
+        case 'h2':
+          processedBlocks.push(<h2 key={index}>{childrenComponents}</h2>)
+          break
+        case 'h3':
+          processedBlocks.push(<h3 key={index}>{childrenComponents}</h3>)
+          break
+        case 'h4':
+          processedBlocks.push(<h4 key={index}>{childrenComponents}</h4>)
+          break
+        case 'ol':
+          processedBlocks.push(<ol key={index}>{childrenComponents}</ol>)
+          break
+        case 'ul':
+          processedBlocks.push(<ul key={index}>{childrenComponents}</ul>)
+          break
+        case 'li':
+          processedBlocks.push(<li key={index}>{childrenComponents}</li>)
+          break
+        case 'hr':
+          processedBlocks.push(<hr key={index} />)
+          break
+        case 'br':
+          processedBlocks.push(<br key={index} />)
+          break
         default:
           processedBlocks.push(<>{'<' + block.name + '>'}{childrenComponents}{'</' + block.name + '>'}</>)
           break
