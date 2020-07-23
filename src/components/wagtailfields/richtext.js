@@ -73,7 +73,6 @@ function richTextBlocksToComponents (richTextBlocks = []) {
           console.log('Ignoring embedded image or video')
           break
         default:
-          console.log(index, block)
           processedBlocks.push(<>{'<' + block.name + '>'}{childrenComponents}{'</' + block.name + '>'}</>)
           break
       }
