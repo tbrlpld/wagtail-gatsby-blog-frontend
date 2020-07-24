@@ -1,7 +1,22 @@
 import React from 'react'
 import cheerio from 'cheerio'
 
-import WagtailLink from './wagtaillink'
+import PageLink from './pagelink'
+import DocumentLink from './documentlink'
+
+export function RichTextLink ({ cheerioBlock, children }) {
+  const block = cheerioBlock
+
+  if (block.attribs.id && block.attribs.linktype === 'page') {
+    return <PageLink pageId={block.attribs.id}>{children}</PageLink>
+  } else if (block.attribs.id && block.attribs.linktype === 'document') {
+    return <DocumentLink documentId={block.attribs.id}>{children}</DocumentLink>
+  } else {
+    return (
+      <a>{children}</a>
+    )
+  }
+}
 
 function richTextBlocksToComponents (richTextBlocks = []) {
   const processedBlocks = []
@@ -67,7 +82,7 @@ function richTextBlocksToComponents (richTextBlocks = []) {
           processedBlocks.push(<code key={index}>{childrenComponents}</code>)
           break
         case 'a':
-          processedBlocks.push(<WagtailLink key={index} cheerioBlock={block}>{childrenComponents}</WagtailLink>)
+          processedBlocks.push(<RichTextLink key={index} cheerioBlock={block}>{childrenComponents}</RichTextLink>)
           break
         case 'embed':
           console.log('Ignoring embedded image or video')
