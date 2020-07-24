@@ -1,0 +1,3 @@
+.phone::before {
+  content: '\2706 ';
+}

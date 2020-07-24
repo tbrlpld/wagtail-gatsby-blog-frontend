@@ -4,6 +4,8 @@ import cheerio from 'cheerio'
 import PageLink from './pagelink'
 import DocumentLink from './documentlink'
 import ExternalLink from './externallink'
+import EmailLink from './emaillink'
+import TelephoneLink from './telephonelink'
 
 function RichTextLink ({ cheerioBlock, children }) {
   const block = cheerioBlock
@@ -14,6 +16,10 @@ function RichTextLink ({ cheerioBlock, children }) {
     return <DocumentLink documentId={block.attribs.id}>{children}</DocumentLink>
   } else if (block.attribs.href && block.attribs.href.startsWith('http')) {
     return <ExternalLink to={block.attribs.href}>{children}</ExternalLink>
+  } else if (block.attribs.href && block.attribs.href.startsWith('mailto')) {
+    return <EmailLink to={block.attribs.href}>{children}</EmailLink>
+  } else if (block.attribs.href && block.attribs.href.startsWith('tel')) {
+    return <TelephoneLink to={block.attribs.href}>{children}</TelephoneLink>
   } else {
     console.log(block)
     return (
