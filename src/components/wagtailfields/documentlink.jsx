@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 
 export default function DocumentLink ({ documentId, children }) {
   const data = useStaticQuery(graphql`
@@ -23,7 +23,7 @@ export default function DocumentLink ({ documentId, children }) {
     const graphQLEndpointURL = new URL(data.sitePlugin.pluginOptions.url)
     const backendURL = new URL(graphQLEndpointURL.origin)
     const fileURL = new URL('media/' + doc.file, backendURL)
-    return <a href={fileURL.href} target='_blank'>{children}</a>
+    return <a href={fileURL.href} target='_blank' rel='noopener noreferrer'>{children}</a>
   } else {
     return null
   }
