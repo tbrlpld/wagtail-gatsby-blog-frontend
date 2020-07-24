@@ -23,7 +23,7 @@ function RichTextLink ({ cheerioBlock, children }) {
   } else {
     console.log(block)
     return (
-      <a>{children}</a>
+      <a><mark>{children}</mark></a>
     )
   }
 }
