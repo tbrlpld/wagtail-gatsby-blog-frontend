@@ -1,16 +1,13 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 
+import PageLink from './pagelink'
+
 export default function WagtailLink ({ cheerioBlock, children }) {
   const block = cheerioBlock
-  // console.log(block)
   const data = useStaticQuery(graphql`
     query {
       wagtail {
-        pages {
-          id
-          url
-        }
         documents {
           id
           file
@@ -24,10 +21,7 @@ export default function WagtailLink ({ cheerioBlock, children }) {
     }
   `)
   if (block.attribs.id && block.attribs.linktype === 'page') {
-    const pages = data.wagtail.pages
-    const page = pages.filter((page) => page.id === block.attribs.id).shift()
-    const toURL = page && page.url
-    return <Link to={toURL}>{children}</Link>
+    return <PageLink pageId={block.attribs.id}>{children}</PageLink>
   } else if (block.attribs.id && block.attribs.linktype === 'document') {
     const docs = data.wagtail.documents
     const doc = docs.filter((doc) => doc.id === block.attribs.id).shift()
