@@ -1,0 +1,6 @@
+.external::after {
+  content: '\2750';
+  font-size: x-small;
+  text-decoration: unset;
+  vertical-align: super;
+}

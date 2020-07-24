@@ -3,6 +3,7 @@ import cheerio from 'cheerio'
 
 import PageLink from './pagelink'
 import DocumentLink from './documentlink'
+import ExternalLink from './externallink'
 
 function RichTextLink ({ cheerioBlock, children }) {
   const block = cheerioBlock
@@ -11,7 +12,10 @@ function RichTextLink ({ cheerioBlock, children }) {
     return <PageLink pageId={block.attribs.id}>{children}</PageLink>
   } else if (block.attribs.id && block.attribs.linktype === 'document') {
     return <DocumentLink documentId={block.attribs.id}>{children}</DocumentLink>
+  } else if (block.attribs.href && block.attribs.href.startsWith('http')) {
+    return <ExternalLink to={block.attribs.href}>{children}</ExternalLink>
   } else {
+    console.log(block)
     return (
       <a>{children}</a>
     )
