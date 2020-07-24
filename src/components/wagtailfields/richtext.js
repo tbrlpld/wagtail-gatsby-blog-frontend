@@ -4,7 +4,7 @@ import cheerio from 'cheerio'
 import PageLink from './pagelink'
 import DocumentLink from './documentlink'
 
-export function RichTextLink ({ cheerioBlock, children }) {
+function RichTextLink ({ cheerioBlock, children }) {
   const block = cheerioBlock
 
   if (block.attribs.id && block.attribs.linktype === 'page') {
