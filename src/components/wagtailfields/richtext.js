@@ -21,10 +21,12 @@ function RichTextLink ({ cheerioBlock, children }) {
     return <EmailLink to={block.attribs.href}>{children}</EmailLink>
   } else if (block.attribs.href && block.attribs.href.startsWith('tel')) {
     return <TelephoneLink to={block.attribs.href}>{children}</TelephoneLink>
+  } else if (block.attribs.href && block.attribs.href.startsWith('#')) {
+    return <a href={block.attribs.href}>{children}</a>
   } else {
     console.log(block)
     return (
-      <a><mark>{children}</mark></a>
+      <mark>{children}</mark>
     )
   }
 }
