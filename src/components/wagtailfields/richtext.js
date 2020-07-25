@@ -1,11 +1,11 @@
 import React from 'react'
 import cheerio from 'cheerio'
 
+import ExternalLink from '../links/externallink'
+import EmailLink from '../links/emaillink'
+import TelephoneLink from '../links/telephonelink'
 import PageLink from './pagelink'
 import DocumentLink from './documentlink'
-import ExternalLink from './externallink'
-import EmailLink from './emaillink'
-import TelephoneLink from './telephonelink'
 
 function RichTextLink ({ cheerioBlock, children }) {
   const block = cheerioBlock
