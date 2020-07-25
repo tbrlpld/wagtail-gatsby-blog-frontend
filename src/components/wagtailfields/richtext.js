@@ -1,6 +1,7 @@
 import React from 'react'
 import cheerio from 'cheerio'
 
+import Heading from '../heading'
 import ExternalLink from '../links/externallink'
 import EmailLink from '../links/emaillink'
 import TelephoneLink from '../links/telephonelink'
@@ -41,19 +42,19 @@ function richTextBlocksToComponents (richTextBlocks = []) {
           processedBlocks.push(<p key={index}>{childrenComponents}</p>)
           break
         case 'h2':
-          processedBlocks.push(<h2 key={index}>{childrenComponents}</h2>)
+          processedBlocks.push(<Heading level={2} key={index}>{childrenComponents}</Heading>)
           break
         case 'h3':
-          processedBlocks.push(<h3 key={index}>{childrenComponents}</h3>)
+          processedBlocks.push(<Heading level={3} key={index}>{childrenComponents}</Heading>)
           break
         case 'h4':
-          processedBlocks.push(<h4 key={index}>{childrenComponents}</h4>)
+          processedBlocks.push(<Heading level={4} key={index}>{childrenComponents}</Heading>)
           break
         case 'h5':
-          processedBlocks.push(<h5 key={index}>{childrenComponents}</h5>)
+          processedBlocks.push(<Heading level={5} key={index}>{childrenComponents}</Heading>)
           break
         case 'h6':
-          processedBlocks.push(<h6 key={index}>{childrenComponents}</h6>)
+          processedBlocks.push(<Heading level={6} key={index}>{childrenComponents}</Heading>)
           break
         case 'ol':
           processedBlocks.push(<ol key={index}>{childrenComponents}</ol>)

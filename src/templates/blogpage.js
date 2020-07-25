@@ -6,6 +6,7 @@ import Layout from '../components/layout'
 import RichTextField from '../components/wagtailfields/richtext'
 import StreamField from '../components/wagtailfields/stream'
 import TagPill from '../components/tagpill'
+import Heading from '../components/heading'
 
 const ArticleTags = ({ tags }) => {
   if (tags && tags.length > 0) {
@@ -78,7 +79,7 @@ export default ({ data }) => {
   return (
     <Layout>
       <article>
-        <h1>{page.title}</h1>
+        <Heading level={1} setSelfAnchor={false}>{page.title}</Heading>
         <p><ArticleTags tags={page.tags} /></p>
         <p><em>{page.intro}</em></p>
         <HeroImage galleryImages={page.galleryImages} />
