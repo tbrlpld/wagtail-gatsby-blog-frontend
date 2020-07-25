@@ -4,12 +4,8 @@
 }
 
 .selfAnchor > *:hover::after {
-  content: '\26AC\26AC';
-  display: inline-block;
-  padding-left: .2em;
-  transform: rotate(-15deg);
+  content: ' 🔗';
 
-  letter-spacing: -.2em;
   vertical-align: super;
   font-size: 0.5em;
   color: lightgray;

@@ -1,6 +1,8 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 
+import style from './documentlink.module.css'
+
 export default function DocumentLink ({ documentId, children }) {
   const data = useStaticQuery(graphql`
     query {
@@ -23,7 +25,7 @@ export default function DocumentLink ({ documentId, children }) {
     const graphQLEndpointURL = new URL(data.sitePlugin.pluginOptions.url)
     const backendURL = new URL(graphQLEndpointURL.origin)
     const fileURL = new URL('media/' + doc.file, backendURL)
-    return <a href={fileURL.href} target='_blank' rel='noopener noreferrer'>{children}</a>
+    return <a href={fileURL.href} className={style.docLink} target='_blank' rel='noopener noreferrer'>{children}</a>
   } else {
     return null
   }
