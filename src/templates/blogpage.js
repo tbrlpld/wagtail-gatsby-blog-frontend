@@ -64,8 +64,10 @@ query ($slug: String) {
         galleryImages {
           id
           caption
-          image  {
+          image {
+            src
             imageFile {
+              id
               childImageSharp {
                 fluid(maxWidth: 800, grayscale: true) {
                   ...GatsbyImageSharpFluid
@@ -78,6 +80,19 @@ query ($slug: String) {
           id
           field
           rawValue
+          ... on ImageChooserBlock {
+            image {
+              src
+              imageFile {
+                id
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+            }
+          }
         }
         tags {
           id
