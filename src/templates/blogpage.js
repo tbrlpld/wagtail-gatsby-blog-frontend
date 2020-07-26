@@ -4,7 +4,7 @@ import Img from 'gatsby-image'
 
 import Layout from '../components/layout'
 import RichTextField from '../components/wagtailfields/richtext'
-import StreamField from '../components/wagtailfields/stream'
+import StreamField from '../components/wagtailfields/streamfield'
 import TagPill from '../components/tagpill'
 import Heading from '../components/heading'
 
