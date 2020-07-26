@@ -20,7 +20,7 @@ fragment StreamFieldData on StreamFieldInterface {
         id
         childImageSharp {
           fluid {
-            src
+            ...GatsbyImageSharpFluid
           }
         }
       }
