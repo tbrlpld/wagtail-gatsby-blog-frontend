@@ -38,18 +38,12 @@ const createTagPages = async (graphql, actions) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   // Automatically create pages from Wagtail pages
-  return await createWagtailPages({
+  await createWagtailPages({
     'home.HomePage': 'templates/home.js',
     'blog.BlogPage': 'templates/blogpage.js',
     'blog.BlogIndexPage': 'templates/blogindexpage.jsx',
     'blog.BlogCategory': 'templates/blogcategory.jsx'
-  }, graphql, actions, []).then(
-    /*
-    Additional pages that do not have a corresponding page in Wagtail but that
-    are still created automatically from data. Each additional function should be in another `then()`
-    call. This is basically chaining the Promises and makes sure that `createPages` is returning a
-    final promise.
-    */
-    createTagPages(graphql, actions)
-  )
+  }, graphql, actions, [])
+  // Create pages that are not represented in Wagtail
+  await createTagPages(graphql, actions)
 }
