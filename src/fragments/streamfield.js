@@ -15,15 +15,7 @@ fragment StreamFieldData on StreamFieldInterface {
   }
   ... on ImageChooserBlock {
     image {
-      src
-      imageFile {
-        id
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
+      id
     }
   }
   ... on TextBlock {
