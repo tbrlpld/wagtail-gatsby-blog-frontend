@@ -8,8 +8,8 @@
 const path = require('path')
 const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
 
-const createTagPages = (graphql, actions) => {
-  return graphql(`
+const createTagPages = async (graphql, actions) => {
+  return await graphql(`
     query {
       wagtail {
         tags {
@@ -36,9 +36,9 @@ const createTagPages = (graphql, actions) => {
   )
 }
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   // Automatically create pages from Wagtail pages
-  return createWagtailPages({
+  return await createWagtailPages({
     'home.HomePage': 'templates/home.js',
     'blog.BlogPage': 'templates/blogpage.js',
     'blog.BlogIndexPage': 'templates/blogindexpage.jsx',
