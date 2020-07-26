@@ -65,6 +65,7 @@ query ($slug: String) {
           id
           caption
           image {
+            id
             src
             imageFile {
               id
@@ -77,27 +78,7 @@ query ($slug: String) {
           }
         }
         freeformbody {
-          id
-          field
-          rawValue
-          ... on CharBlock {
-            id
-            value
-          }
-          ... on RichTextBlock {
-            id
-            value
-          }
-          ... on ImageChooserBlock {
-            image {
-              id
-              src
-            }
-          }
-          ... on TextBlock {
-            id
-            value
-          }
+          ...StreamFieldData
         }
         tags {
           id

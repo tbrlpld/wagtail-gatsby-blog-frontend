@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby'
 
-export const blogPageFragment = graphql`
+export const query = graphql`
   fragment BlogPageInfo on BlogPage {
     id
     slug

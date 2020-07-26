@@ -38,12 +38,20 @@ const createTagPages = async (graphql, actions) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   // Automatically create pages from Wagtail pages
-  await createWagtailPages({
-    'home.HomePage': 'templates/home.js',
-    'blog.BlogPage': 'templates/blogpage.js',
-    'blog.BlogIndexPage': 'templates/blogindexpage.jsx',
-    'blog.BlogCategory': 'templates/blogcategory.jsx'
-  }, graphql, actions, [])
+  await createWagtailPages(
+    {
+      'home.HomePage': 'templates/home.js',
+      'blog.BlogPage': 'templates/blogpage.js',
+      'blog.BlogIndexPage': 'templates/blogindexpage.jsx',
+      'blog.BlogCategory': 'templates/blogcategory.jsx'
+    },
+    graphql,
+    actions,
+    [
+      'fragments/blogpage.js',
+      'fragments/streamfield.js'
+    ]
+  )
   // Create pages that are not represented in Wagtail
   await createTagPages(graphql, actions)
 }
