@@ -18,6 +18,35 @@ const ArticleTags = ({ tags }) => {
   return null
 }
 
+function HeroImage (props) {
+  const galleryImages = props.galleryImages
+
+  if (galleryImages && galleryImages.length > 0) {
+    return (
+      <Img fluid={galleryImages[0].image.imageFile.childImageSharp.fluid} />
+    )
+  } else {
+    return null
+  }
+}
+
+export default ({ data }) => {
+  const page = data.wagtail.page
+
+  return (
+    <Layout>
+      <article>
+        <Heading level={1} setSelfAnchor={false}>{page.title}</Heading>
+        <p><ArticleTags tags={page.tags} /></p>
+        <p><em>{page.intro}</em></p>
+        <HeroImage galleryImages={page.galleryImages} />
+        <RichTextField rawRichText={page.body} />
+        <StreamField streamField={page.freeformbody} />
+      </article>
+    </Layout>
+  )
+}
+
 export const query = graphql`
 query ($slug: String) {
   wagtail {
@@ -60,32 +89,3 @@ query ($slug: String) {
   }
 }
 `
-
-function HeroImage (props) {
-  const galleryImages = props.galleryImages
-
-  if (galleryImages && galleryImages.length > 0) {
-    return (
-      <Img fluid={galleryImages[0].image.imageFile.childImageSharp.fluid} />
-    )
-  } else {
-    return null
-  }
-}
-
-export default ({ data }) => {
-  const page = data.wagtail.page
-
-  return (
-    <Layout>
-      <article>
-        <Heading level={1} setSelfAnchor={false}>{page.title}</Heading>
-        <p><ArticleTags tags={page.tags} /></p>
-        <p><em>{page.intro}</em></p>
-        <HeroImage galleryImages={page.galleryImages} />
-        <RichTextField rawRichText={page.body} />
-        <StreamField streamField={page.freeformbody} />
-      </article>
-    </Layout>
-  )
-}
