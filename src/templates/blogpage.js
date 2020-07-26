@@ -77,7 +77,22 @@ query ($slug: String) {
           }
         }
         freeformbody {
-          ...StreamFieldData
+          id
+          field
+          rawValue
+          ... on ImageChooserBlock {
+            image {
+              src
+              imageFile {
+                id
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+            }
+          }
         }
         tags {
           id
