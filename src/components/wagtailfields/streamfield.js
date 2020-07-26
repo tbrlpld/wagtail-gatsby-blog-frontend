@@ -67,7 +67,7 @@ export default function StreamField (props) {
         break
       }
       default: {
-        fields.push(<div style={{ backgroundColor: 'yellow' }} dangerouslySetInnerHTML={{ __html: item.rawValue }} />)
+        fields.push(<div style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.rawValue }} />)
         break
       }
     }
