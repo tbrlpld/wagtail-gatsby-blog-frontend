@@ -165,6 +165,10 @@ export default function StreamField (props) {
         fields.push(<div key={item.id}><ResponsiveIframe src={src} /></div>)
         break
       }
+      case 'static': {
+        fields.push(<div key={item.id}>ADD WHAT EVER THE STATIC BLOCK STANDS FOR.</div>)
+        break
+      }
       default: {
         fields.push(<div key={item.id} style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.field + ': ' + item.rawValue }} />)
         break
