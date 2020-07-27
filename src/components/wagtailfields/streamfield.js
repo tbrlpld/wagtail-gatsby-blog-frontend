@@ -5,6 +5,7 @@ import Img from 'gatsby-image'
 import RichTextField from './richtext'
 import Heading from '../heading'
 import EmailLink from '../links/emaillink'
+import ExternalLink from '../links/externallink'
 
 function StreamImage ({ imageId }) {
   // Yes this is overkill and not how GraphQL should be used,
@@ -73,6 +74,26 @@ export default function StreamField (props) {
       }
       case 'email': {
         fields.push(<EmailLink key={item.id} email={item.value}>{item.value}</EmailLink>)
+        break
+      }
+      case 'integer': {
+        fields.push(<div key={item.id}><data value={item.intValue}>{item.intValue}</data></div>)
+        break
+      }
+      case 'float': {
+        fields.push(<div key={item.id}><data value={item.floatValue}>{item.floatValue}</data></div>)
+        break
+      }
+      case 'decimal': {
+        fields.push(<div key={item.id}><data value={item.decimalValue}>{item.decimalValue}</data></div>)
+        break
+      }
+      case 'regex': {
+        fields.push(<div key={item.id}>{item.value}</div>)
+        break
+      }
+      case 'url': {
+        fields.push(<ExternalLink key={item.id} to={item.value}>{item.value}</ExternalLink>)
         break
       }
       default: {
