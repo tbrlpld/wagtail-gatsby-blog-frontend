@@ -86,5 +86,13 @@ fragment StreamFieldData on StreamFieldInterface {
     }
     value
   }
+  ... on PageChooserBlock {
+    id
+    page {
+      id
+      url
+      title
+    }
+  }
 }
 `

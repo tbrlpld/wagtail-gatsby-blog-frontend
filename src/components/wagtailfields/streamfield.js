@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 
 import RichTextField from './richtext'
@@ -136,6 +136,10 @@ export default function StreamField (props) {
             {choices}
           </fieldset>
         )
+        break
+      }
+      case 'page': {
+        fields.push(<div key={item.id}><Link to={item.page.url}>{item.page.title}</Link></div>)
         break
       }
       default: {
