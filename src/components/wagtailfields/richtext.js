@@ -18,7 +18,7 @@ function RichTextLink ({ cheerioBlock, children }) {
   } else if (block.attribs.href && block.attribs.href.startsWith('http')) {
     return <ExternalLink to={block.attribs.href}>{children}</ExternalLink>
   } else if (block.attribs.href && block.attribs.href.startsWith('mailto')) {
-    return <EmailLink to={block.attribs.href}>{children}</EmailLink>
+    return <EmailLink email={block.attribs.href.split(':').pop()}>{children}</EmailLink>
   } else if (block.attribs.href && block.attribs.href.startsWith('tel')) {
     return <TelephoneLink to={block.attribs.href}>{children}</TelephoneLink>
   } else if (block.attribs.href && block.attribs.href.startsWith('#')) {

@@ -4,6 +4,7 @@ import Img from 'gatsby-image'
 
 import RichTextField from './richtext'
 import Heading from '../heading'
+import EmailLink from '../links/emaillink'
 
 function StreamImage ({ imageId }) {
   // Yes this is overkill and not how GraphQL should be used,
@@ -68,6 +69,10 @@ export default function StreamField (props) {
       }
       case 'text': {
         fields.push(<div key={item.id}><p>{item.value}</p></div>)
+        break
+      }
+      case 'email': {
+        fields.push(<EmailLink key={item.id} email={item.value}>{item.value}</EmailLink>)
         break
       }
       default: {
