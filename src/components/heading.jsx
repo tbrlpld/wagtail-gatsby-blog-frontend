@@ -1,10 +1,11 @@
 import React from 'react'
+import slugify from 'slugify'
 
 import style from './heading.module.css'
 
 function Heading ({ level, children, setSelfAnchor, id }) {
   if (id === undefined) {
-    id = children.toString().toLowerCase().replaceAll(' ', '-')
+    id = slugify(children.toString().toLowerCase())
   }
 
   let heading = null
