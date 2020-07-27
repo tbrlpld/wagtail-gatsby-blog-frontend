@@ -70,5 +70,9 @@ fragment StreamFieldData on StreamFieldInterface {
     isoDateTime: value
     usHumanDateTime: value(format: "%I:%M %p %a, %B %d, %Y")
   }
+  ... on RawHTMLBlock {
+    id
+    rawValue
+  }
 }
 `

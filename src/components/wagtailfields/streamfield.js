@@ -112,8 +112,12 @@ export default function StreamField (props) {
         fields.push(<div key={item.id}><time datetime={item.isoDateTime}>{item.usHumanDateTime}</time></div>)
         break
       }
+      case 'rawhtml': {
+        fields.push(<div key={item.id} dangerouslySetInnerHTML={{ __html: item.rawValue }} />)
+        break
+      }
       default: {
-        fields.push(<div style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.field + ': ' + item.rawValue }} />)
+        fields.push(<div key={item.id} style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.field + ': ' + item.rawValue }} />)
         break
       }
     }
