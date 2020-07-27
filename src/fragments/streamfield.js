@@ -78,5 +78,13 @@ fragment StreamFieldData on StreamFieldInterface {
     id
     value
   }
+  ... on ChoiceBlock {
+    id
+    choices {
+      key
+      value
+    }
+    value
+  }
 }
 `

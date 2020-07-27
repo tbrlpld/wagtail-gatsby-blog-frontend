@@ -56,7 +56,7 @@ export default function StreamField (props) {
   for (const item of streamField) {
     switch (item.field) {
       case 'heading': {
-        fields.push(<Heading level={2} key={item.id}>{item.value}</Heading>)
+        fields.push(<Heading key={item.id} level={2}>{item.value}</Heading>)
         break
       }
       case 'paragraph': {
@@ -97,19 +97,19 @@ export default function StreamField (props) {
         break
       }
       case 'bool': {
-        fields.push(<div key={item.id}><input type='checkbox' checked={item.boolValue} /></div>)
+        fields.push(<div key={item.id}><input type='checkbox' checked={item.boolValue} readOnly /></div>)
         break
       }
       case 'date': {
-        fields.push(<div key={item.id}><time datetime={item.isoValue}>{item.usHuman}</time></div>)
+        fields.push(<div key={item.id}><time dateTime={item.isoValue}>{item.usHuman}</time></div>)
         break
       }
       case 'time': {
-        fields.push(<div key={item.id}><time datetime={item.isoTime}>{item.usHumanTime}</time></div>)
+        fields.push(<div key={item.id}><time dateTime={item.isoTime}>{item.usHumanTime}</time></div>)
         break
       }
       case 'datetime': {
-        fields.push(<div key={item.id}><time datetime={item.isoDateTime}>{item.usHumanDateTime}</time></div>)
+        fields.push(<div key={item.id}><time dateTime={item.isoDateTime}>{item.usHumanDateTime}</time></div>)
         break
       }
       case 'rawhtml': {
@@ -118,6 +118,24 @@ export default function StreamField (props) {
       }
       case 'blockquote': {
         fields.push(<div key={item.id}><blockquote>{item.value}</blockquote></div>)
+        break
+      }
+      case 'choice': {
+        const choices = []
+        for (const choice of item.choices) {
+          choices.push(
+            <div key={item.id + choice.key}>
+              <input id={choice.key} type='radio' value={choice.value} checked={choice.key === item.value} readOnly />
+              <label htmlFor={choice.key}>{choice.value}</label>
+            </div>
+          )
+        }
+        fields.push(
+          <fieldset key={item.id}>
+            <legend>{item.field}</legend>
+            {choices}
+          </fieldset>
+        )
         break
       }
       default: {
