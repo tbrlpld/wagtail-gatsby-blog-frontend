@@ -60,5 +60,10 @@ fragment StreamFieldData on StreamFieldInterface {
     isoValue: value(format: "%Y-%m-%d")
     usHuman: value(format: "%a, %B %d, %Y")
   }
+  ... on TimeBlock {
+    id
+    isoTime: value(format: "%H:%M:%S")
+    usHumanTime: value(format: "%I:%M %p")
+  }
 }
 `
