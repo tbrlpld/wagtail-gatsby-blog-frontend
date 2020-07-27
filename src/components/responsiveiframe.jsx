@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import slugify from 'slugify'
 
 import style from './responsiveiframe.module.css'
 
 function ResponsiveIframe ({ src, heightByWidth }) {
+  const title = slugify(src)
   const paddingTop = String(heightByWidth * 100) + '%'
   return (
     <div className={style.iframeContainer} style={{ paddingTop: paddingTop }}>
-      <iframe src={src} frameBorder='0' allowFullScreen />
+      <iframe title={title} src={src} frameBorder='0' allowFullScreen />
     </div>
   )
 }
