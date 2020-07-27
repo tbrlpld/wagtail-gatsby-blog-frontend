@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
+import cheerio from 'cheerio'
 
 import RichTextField from './richtext'
 import Heading from '../heading'
@@ -9,7 +10,13 @@ import ExternalLink from '../links/externallink'
 import DocumentLink from './documentlink'
 
 export function extractSrcFromEmbedIframe (html) {
-  return null
+  const $ = cheerio.load(html)
+  const iframe = $('iframe').toArray().pop()
+  if (iframe) {
+    return iframe.attribs.src
+  } else {
+    return null
+  }
 }
 
 function StreamImage ({ imageId }) {
