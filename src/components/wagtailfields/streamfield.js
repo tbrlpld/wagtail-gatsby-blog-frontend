@@ -100,6 +100,10 @@ export default function StreamField (props) {
         fields.push(<div key={item.id}><input type='checkbox' checked={item.boolValue} /></div>)
         break
       }
+      case 'date': {
+        fields.push(<div key={item.id}><time datetime={item.isoValue}>{item.usHuman}</time></div>)
+        break
+      }
       default: {
         fields.push(<div style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.field + ': ' + item.rawValue }} />)
         break

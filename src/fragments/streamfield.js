@@ -55,5 +55,10 @@ fragment StreamFieldData on StreamFieldInterface {
     id
     boolValue: value
   }
+  ... on DateBlock {
+    id
+    isoValue: value(format: "%Y-%m-%d")
+    usHuman: value(format: "%a, %B %d, %Y")
+  }
 }
 `
