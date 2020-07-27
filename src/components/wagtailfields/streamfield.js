@@ -113,7 +113,11 @@ export default function StreamField (props) {
         break
       }
       case 'rawhtml': {
-        fields.push(<div key={item.id} dangerouslySetInnerHTML={{ __html: item.rawValue }} />)
+        fields.push(<div key={item.id} dangerouslySetInnerHTML={{ __html: item.value }} />)
+        break
+      }
+      case 'blockquote': {
+        fields.push(<div key={item.id}><blockquote>{item.value}</blockquote></div>)
         break
       }
       default: {

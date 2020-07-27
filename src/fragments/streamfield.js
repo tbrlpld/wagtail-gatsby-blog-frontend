@@ -72,7 +72,11 @@ fragment StreamFieldData on StreamFieldInterface {
   }
   ... on RawHTMLBlock {
     id
-    rawValue
+    value
+  }
+  ... on BlockQuoteBlock {
+    id
+    value
   }
 }
 `
