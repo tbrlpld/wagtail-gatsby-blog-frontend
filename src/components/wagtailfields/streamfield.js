@@ -8,6 +8,10 @@ import EmailLink from '../links/emaillink'
 import ExternalLink from '../links/externallink'
 import DocumentLink from './documentlink'
 
+export function extractSrcFromEmbedIframe (html) {
+  return null
+}
+
 function StreamImage ({ imageId }) {
   // Yes this is overkill and not how GraphQL should be used,
   // but I need a workaround until multiple imageFile fields in the same
@@ -144,6 +148,10 @@ export default function StreamField (props) {
         break
       }
       case 'doc': {
+        fields.push(<div key={item.id}><DocumentLink documentId={item.document.id}>{item.document.title}</DocumentLink></div>)
+        break
+      }
+      case 'embed': {
         fields.push(<div key={item.id}><DocumentLink documentId={item.document.id}>{item.document.title}</DocumentLink></div>)
         break
       }

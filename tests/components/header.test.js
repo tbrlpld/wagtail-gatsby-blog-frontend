@@ -1,4 +1,4 @@
-
+/* eslint-env jest */
 import React from 'react'
 import { useStaticQuery } from 'gatsby'
 
@@ -10,7 +10,7 @@ describe('Header', () => {
   useStaticQuery.mockImplementationOnce(() => (
     {
       wagtail: {
-        pages: [{ 
+        pages: [{
           id: 1,
           showInMenus: true,
           title: 'Testpage',

@@ -102,5 +102,10 @@ fragment StreamFieldData on StreamFieldInterface {
       title
     }
   }
+  ... on EmbedBlock {
+    id
+    url
+    value
+  }
 }
 `
