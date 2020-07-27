@@ -7,7 +7,7 @@ function ResponsiveIframe ({ src, heightByWidth }) {
   const paddingTop = String(heightByWidth * 100) + '%'
   return (
     <div className={style.iframeContainer} style={{ paddingTop: paddingTop }}>
-      <iframe src={src} frameborder='0' allowFullScreen />
+      <iframe title={src} src={src} frameborder='0' allowFullScreen />
     </div>
   )
 }
