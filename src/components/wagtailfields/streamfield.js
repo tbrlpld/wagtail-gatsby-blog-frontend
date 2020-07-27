@@ -6,6 +6,7 @@ import RichTextField from './richtext'
 import Heading from '../heading'
 import EmailLink from '../links/emaillink'
 import ExternalLink from '../links/externallink'
+import DocumentLink from './documentlink'
 
 function StreamImage ({ imageId }) {
   // Yes this is overkill and not how GraphQL should be used,
@@ -140,6 +141,10 @@ export default function StreamField (props) {
       }
       case 'page': {
         fields.push(<div key={item.id}><Link to={item.page.url}>{item.page.title}</Link></div>)
+        break
+      }
+      case 'doc': {
+        fields.push(<div key={item.id}><DocumentLink documentId={item.document.id}>{item.document.title}</DocumentLink></div>)
         break
       }
       default: {

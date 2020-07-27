@@ -94,5 +94,13 @@ fragment StreamFieldData on StreamFieldInterface {
       title
     }
   }
+  ... on DocumentChooserBlock {
+    id
+    document {
+      file
+      id
+      title
+    }
+  }
 }
 `
