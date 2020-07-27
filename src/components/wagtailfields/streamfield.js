@@ -8,6 +8,7 @@ import Heading from '../heading'
 import EmailLink from '../links/emaillink'
 import ExternalLink from '../links/externallink'
 import DocumentLink from './documentlink'
+import ResponsiveIframe from '../responsiveiframe'
 
 export function extractSrcFromEmbedIframe (html) {
   const $ = cheerio.load(html)
@@ -159,7 +160,8 @@ export default function StreamField (props) {
         break
       }
       case 'embed': {
-        fields.push(<div key={item.id}><DocumentLink documentId={item.document.id}>{item.document.title}</DocumentLink></div>)
+        const src = extractSrcFromEmbedIframe(item.value)
+        fields.push(<div key={item.id}><ResponsiveIframe src={src} /></div>)
         break
       }
       default: {
