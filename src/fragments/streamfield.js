@@ -51,5 +51,9 @@ fragment StreamFieldData on StreamFieldInterface {
     id
     value
   }
+  ... on BooleanBlock {
+    id
+    boolValue: value
+  }
 }
 `

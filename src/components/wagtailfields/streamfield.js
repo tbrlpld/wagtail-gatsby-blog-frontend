@@ -93,7 +93,11 @@ export default function StreamField (props) {
         break
       }
       case 'url': {
-        fields.push(<ExternalLink key={item.id} to={item.value}>{item.value}</ExternalLink>)
+        fields.push(<div key={item.id}><ExternalLink to={item.value}>{item.value}</ExternalLink></div>)
+        break
+      }
+      case 'bool': {
+        fields.push(<div key={item.id}><input type='checkbox' checked={item.boolValue} /></div>)
         break
       }
       default: {
