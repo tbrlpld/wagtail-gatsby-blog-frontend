@@ -6,11 +6,9 @@ fragment StreamFieldData on StreamFieldInterface {
   field
   rawValue
   ... on CharBlock {
-    id
     value
   }
   ... on RichTextBlock {
-    id
     value
   }
   ... on ImageChooserBlock {
@@ -20,7 +18,9 @@ fragment StreamFieldData on StreamFieldInterface {
     }
   }
   ... on TextBlock {
-    id
+    value
+  }
+  ... on EmailBlock {
     value
   }
 }

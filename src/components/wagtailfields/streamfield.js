@@ -66,8 +66,12 @@ export default function StreamField (props) {
         fields.push(<StreamImage key={item.id} imageId={item.image.id} />)
         break
       }
+      case 'text': {
+        fields.push(<div key={item.id}><p>{item.value}</p></div>)
+        break
+      }
       default: {
-        fields.push(<div style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.rawValue }} />)
+        fields.push(<div style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.field + ': ' + item.rawValue }} />)
         break
       }
     }
