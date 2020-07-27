@@ -160,7 +160,8 @@ export default function StreamField (props) {
         break
       }
       case 'embed': {
-        const src = extractSrcFromEmbedIframe(item.value)
+        let src = extractSrcFromEmbedIframe(item.value)
+        src += '&modestbranding=1&rel=0&fs=1'
         fields.push(<div key={item.id}><ResponsiveIframe src={src} /></div>)
         break
       }
