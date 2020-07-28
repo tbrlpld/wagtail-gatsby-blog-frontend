@@ -181,6 +181,10 @@ export default function StreamField (props) {
               I would need to create an additional file, because only one query per file is allowed.
               It's not impossible, but I just do not want to do it right now.
             </p>
+            <p>
+              Just found out that the `blocks` query only breaks once an image is selected for
+              the `ImageChooserBlock` in the `StructBlock`.
+            </p>
             <div>
               Oh, yea, here is the rest of the data:
               <div>
