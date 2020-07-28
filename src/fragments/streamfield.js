@@ -109,6 +109,7 @@ fragment StreamFieldData on StreamFieldInterface {
   }
   ... on StaticBlock {
     id
+    value
   }
 }
 `
