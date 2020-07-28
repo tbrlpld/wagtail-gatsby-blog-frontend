@@ -201,6 +201,15 @@ export default function StreamField (props) {
         fields.push(<ul key={item.id}>{listItems}</ul>)
         break
       }
+      /*
+        There are open issues with the stream block: https://github.com/GrappleGQL/wagtail-grapple/pull/54
+        These issues make it basically impossible to query meaningful data.
+        Until that is resolved, I should possibly stay clear of of using the SteamBlock.
+      */
+      // case 'substream': {
+      //   fields.push(<StreamField key={item.id} streamField={item.blocks} />)
+      //   break
+      // }
       default: {
         fields.push(<div key={item.id} style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.field + ': ' + item.rawValue }} />)
         break
