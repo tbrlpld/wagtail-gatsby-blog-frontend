@@ -123,5 +123,13 @@ fragment StreamFieldData on StreamFieldInterface {
       }
     }
   }
+  ... on ListBlock {
+    items {
+      ... on CharBlock {
+        id
+        value
+      }
+    }
+  }
 }
 `

@@ -196,6 +196,11 @@ export default function StreamField (props) {
         )
         break
       }
+      case 'list': {
+        const listItems = item.items.map((i) => <li key={i.id}>{i.value}</li>)
+        fields.push(<ul key={item.id}>{listItems}</ul>)
+        break
+      }
       default: {
         fields.push(<div key={item.id} style={{ backgroundColor: 'yellow', marginTop: '1em' }} dangerouslySetInnerHTML={{ __html: item.field + ': ' + item.rawValue }} />)
         break
