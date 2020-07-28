@@ -170,8 +170,10 @@ export default function StreamField (props) {
         break
       }
       case 'person': {
-        const personString = item.rawValue.replace(/'/g, '"')
-        const person = JSON.parse(personString)
+        const person = {}
+        for (const block of item.blocks) {
+          person[block.id] = block.value
+        }
         fields.push(
           <div key={item.id}>
             <p>
@@ -186,11 +188,9 @@ export default function StreamField (props) {
               the `ImageChooserBlock` in the `StructBlock`.
             </p>
             <div>
-              Oh, yea, here is the rest of the data:
-              <div>
-                <strong>{person.first_name} {person.last_name}</strong>
-                <p>{person.biography}</p>
-              </div>
+              Oh, yea, here is the rest of the data:<br />
+              <strong>{person.first_name} {person.last_name}</strong><br />
+              <em>{person.biography}</em>
             </div>
           </div>
         )
