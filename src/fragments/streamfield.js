@@ -111,5 +111,9 @@ fragment StreamFieldData on StreamFieldInterface {
     id
     value
   }
+  ... on StructBlock {
+    id
+    rawValue
+  }
 }
 `

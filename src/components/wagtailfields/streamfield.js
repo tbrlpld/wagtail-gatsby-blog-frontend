@@ -30,6 +30,7 @@ function StreamImage ({ imageId }) {
       wagtail {
         images {
           id
+          src
           title
           imageFile {
             childImageSharp {
@@ -62,7 +63,6 @@ function StreamImage ({ imageId }) {
 
 export default function StreamField (props) {
   const streamField = props.streamField
-  console.log(streamField)
 
   const fields = []
 
@@ -167,6 +167,29 @@ export default function StreamField (props) {
       }
       case 'static': {
         fields.push(<div key={item.id}>ADD WHAT EVER THE STATIC BLOCK STANDS FOR.</div>)
+        break
+      }
+      case 'person': {
+        const personString = item.rawValue.replace(/'/g, '"')
+        const person = JSON.parse(personString)
+        fields.push(
+          <div key={item.id}>
+            <p>
+              I do not really want to deal with the image non-sense right now that this is creating.
+              Because the `blocks` field can not be queried, I only get the
+              image path. And because I already have an image query in the streamfield file
+              I would need to create an additional file, because only one query per file is allowed.
+              It's not impossible, but I just do not want to do it right now.
+            </p>
+            <div>
+              Oh, yea, here is the rest of the data:
+              <div>
+                <strong>{person.first_name} {person.last_name}</strong>
+                <p>{person.biography}</p>
+              </div>
+            </div>
+          </div>
+        )
         break
       }
       default: {
