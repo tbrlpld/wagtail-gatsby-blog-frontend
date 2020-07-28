@@ -37,7 +37,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop -p 8001",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop",
+    "start": "npm run clean; npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "jest"
