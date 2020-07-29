@@ -2,6 +2,7 @@ import React from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 import Img from 'gatsby-image'
 import cheerio from 'cheerio'
+import slugify from 'slugify'
 
 import RichTextField from './richtext'
 import Heading from '../heading'
@@ -197,7 +198,7 @@ export default function StreamField (props) {
         break
       }
       case 'list': {
-        const listItems = item.items.map((i) => <li key={i.id}>{i.value}</li>)
+        const listItems = item.items.map((i) => <li key={i.id + slugify(i.value)}>{i.value}</li>)
         fields.push(<ul key={item.id}>{listItems}</ul>)
         break
       }
