@@ -112,16 +112,8 @@ fragment StreamFieldData on StreamFieldInterface {
     value
   }
   ... on StructBlock {
-    blocks {
-      ... on CharBlock {
-        id
-        value
-      }
-      ... on TextBlock {
-        id
-        value
-      }
-    }
+    id
+    rawValue
   }
   ... on ListBlock {
     items {
