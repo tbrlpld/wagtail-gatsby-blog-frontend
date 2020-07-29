@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { extractSrcFromEmbedIframe } from '../../../src/components/wagtailfields/streamfield'
+import { extractSrcFromEmbedIframe } from '../../../src/components/wagtail/streamfield'
 
 describe('StreamField Component Helper Function', () => {
   it('Extracts src from embed iframe', () => {
