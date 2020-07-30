@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
 
 import Layout from '../components/layout'
+import ImageFluid from '../components/wagtail/image'
 import RichTextField from '../components/wagtail/richtext'
 import StreamField from '../components/wagtail/streamfield'
 import TagPill from '../components/tagpill'
@@ -23,7 +23,7 @@ function HeroImage (props) {
 
   if (galleryImages && galleryImages.length > 0) {
     return (
-      <Img fluid={galleryImages[0].image.imageFile.childImageSharp.fluid} />
+      <ImageFluid imgageId={galleryImages.shift().image.id} />
     )
   } else {
     return null
@@ -32,6 +32,7 @@ function HeroImage (props) {
 
 export default ({ data }) => {
   const page = data.wagtail.page
+  console.log(page)
 
   return (
     <Layout>
@@ -63,18 +64,9 @@ query ($slug: String) {
         body
         galleryImages {
           id
-          caption
           image {
             id
             src
-            imageFile {
-              id
-              childImageSharp {
-                fluid(maxWidth: 800, grayscale: true) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
           }
         }
         freeformbody {
