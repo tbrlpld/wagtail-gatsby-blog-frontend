@@ -18,29 +18,27 @@ const ArticleTags = ({ tags }) => {
   return null
 }
 
-function HeroImage (props) {
-  const galleryImages = props.galleryImages
-
-  if (galleryImages && galleryImages.length > 0) {
-    return (
-      <ImageFluid imgageId={galleryImages.shift().image.id} />
-    )
-  } else {
-    return null
-  }
-}
-
 export default ({ data }) => {
   const page = data.wagtail.page
   console.log(page)
+  let heroImageId = null
+  if (page.galleryImages && page.galleryImages.length > 0) {
+    console.log('Gallery images: ', page.galleryImages)
+    console.log('First gallery image: ', page.galleryImages[0])
+    console.log('Image ID of first gallery image: ', page.galleryImages[0].image.id)
+    heroImageId = page.galleryImages[0].image.id
+  }
 
   return (
     <Layout>
       <article>
+        {
+          heroImageId &&
+            <ImageFluid imageId={heroImageId} />
+        }
         <Heading level={1} setSelfAnchor={false}>{page.title}</Heading>
         <p><ArticleTags tags={page.tags} /></p>
         <p><em>{page.intro}</em></p>
-        <HeroImage galleryImages={page.galleryImages} />
         <RichTextField rawRichText={page.body} />
         <StreamField streamField={page.freeformbody} />
       </article>
