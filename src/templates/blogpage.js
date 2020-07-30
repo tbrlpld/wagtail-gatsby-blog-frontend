@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
 import Layout from '../components/layout'
-import ImageFluid from '../components/wagtail/image'
 import RichTextField from '../components/wagtail/richtext'
 import StreamField from '../components/wagtail/streamfield'
 import TagPill from '../components/tagpill'
@@ -20,21 +20,18 @@ const ArticleTags = ({ tags }) => {
 
 export default ({ data }) => {
   const page = data.wagtail.page
-  console.log(page)
-  let heroImageId = null
+
+  let heroImageFluid = null
   if (page.galleryImages && page.galleryImages.length > 0) {
-    console.log('Gallery images: ', page.galleryImages)
-    console.log('First gallery image: ', page.galleryImages[0])
-    console.log('Image ID of first gallery image: ', page.galleryImages[0].image.id)
-    heroImageId = page.galleryImages[0].image.id
+    heroImageFluid = page.galleryImages[0].image.imageFile.childImageSharp.fluid
   }
 
   return (
     <Layout>
       <article>
         {
-          heroImageId &&
-            <ImageFluid imageId={heroImageId} />
+          heroImageFluid &&
+            <Img fluid={heroImageFluid} />
         }
         <Heading level={1} setSelfAnchor={false}>{page.title}</Heading>
         <p><ArticleTags tags={page.tags} /></p>
@@ -65,6 +62,13 @@ query ($slug: String) {
           image {
             id
             src
+            imageFile {
+              childImageSharp {
+                fluid(grayscale: true) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
         }
         freeformbody {
