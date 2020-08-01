@@ -43,7 +43,8 @@ exports.createPages = async ({ graphql, actions }) => {
       'home.HomePage': 'templates/home.js',
       'blog.BlogPage': 'templates/blogpage.js',
       'blog.BlogIndexPage': 'templates/blogindexpage.jsx',
-      'blog.BlogCategory': 'templates/blogcategory.jsx'
+      'blog.BlogCategory': 'templates/blogcategory.jsx',
+      'blog.BlogCategoriesIndex': 'templates/blogcategoriesindex.jsx'
     },
     graphql,
     actions,
