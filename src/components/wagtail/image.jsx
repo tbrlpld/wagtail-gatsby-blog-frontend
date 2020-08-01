@@ -37,7 +37,6 @@ export default function ImageFluid ({ imageId }) {
   // I guess this is an ok workaround, because I am not actually pulling the images
   // and until now, also no image processing is triggered.
   const image = filteredImages[0]
-  console.log('Create Image with ID', imageId, image)
   if (image) {
     return (
       <Img fluid={image.imageFile.childImageSharp.fluid} />
