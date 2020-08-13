@@ -29,7 +29,9 @@ export const query = graphql`
 
 export default ({ data }) => {
   const category = data.wagtail.page
-  const articles = category.blogpages
+  const articles = category.blogpages.filter(
+    article => article.live
+  )
 
   return (
     <Layout>

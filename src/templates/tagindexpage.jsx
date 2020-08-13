@@ -24,7 +24,11 @@ export const query = graphql`
 
 export default ({ data }) => {
   const tag = data.wagtail.tag
-  const articles = data.wagtail.tag.blogBlogpagetagItems.map(taggedItem => taggedItem.contentObject)
+  const articles = data.wagtail.tag.blogBlogpagetagItems.map(
+    taggedItem => taggedItem.contentObject
+  ).filter(
+    article => article.live
+  )
 
   return (
     <Layout>

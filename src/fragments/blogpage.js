@@ -4,6 +4,7 @@ export const query = graphql`
   fragment BlogPageInfo on BlogPage {
     id
     slug
+    live
     url
     title
     tags {
