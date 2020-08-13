@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
 module.exports = {
   siteMetadata: {
     title: 'Mock Block',
@@ -33,7 +37,8 @@ module.exports = {
     {
       resolve: 'gatsby-source-wagtail',
       options: {
-        url: 'http://localhost:8000/graphql'
+        url: `${process.env.WAGTAIL_ENDPOINT}`
+        // url: 'http://localhost:8000/cms/graphql'
       }
     }
   ]
