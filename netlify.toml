@@ -1,0 +1,14 @@
+[build]
+	base = "."
+	publish = "public/"
+	command = "npm run build"
+
+[[redirects]]
+	from = "/cms"
+	to = "https://testcms.lpld.io/:splat"
+	status = 200
+
+[[redirects]]
+	from = "/media"
+	to = "https://testcms.lpld.io/:splat"
+	status = 200
