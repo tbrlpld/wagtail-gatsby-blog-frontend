@@ -6,19 +6,24 @@
 
 // You can delete this file if you're not using it
 const path = require('path')
-const fs = require('fs')
+const fsPromises = require('fs').promises
 const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const createDocument = async () => {
-  const testFileContent = 'Some nonsense string'
-  await fs.writeFile('./static/testfile.txt', testFileContent, (err) => {
-    if (err) {
-      throw err
-    } else {
-      console.log('Create')
-    }
-  })
+  const docsDir = './static/documents/'
+  console.log('Checking for document directory...')
+  fsPromises.mkdir(docsDir)
+    .then(() => console.log('Document dir created...'))
+    .catch(() => console.log('Document dir exists already...'))
+    .then(() => {
+      console.log('Now that the document directory exists, I can do something with it.')
+      const testFileContent = 'Some nonsense string'
+      const testFilePath = docsDir + 'testfile.txt'
+      return fsPromises.writeFile(testFilePath, testFileContent)
+    })
+    .then(() => console.log('Wrote the file'))
+    .catch((err) => console.log('Something went wrong: ' + err))
 }
 
 const createTagPages = async (graphql, actions) => {

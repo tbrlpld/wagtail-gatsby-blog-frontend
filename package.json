@@ -38,6 +38,7 @@
     "develop": "gatsby develop -p 9000",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run clean; npm run develop",
+    "start-dirty": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "jest"
