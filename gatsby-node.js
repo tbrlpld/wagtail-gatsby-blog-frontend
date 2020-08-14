@@ -6,34 +6,10 @@
 
 // You can delete this file if you're not using it
 const path = require('path')
-const fsPromises = require('fs').promises
 const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const ensureDirectoryExistence = (dir) => {
-  console.log('Checking for directory existence: ' + dir)
-  const testFilePath = dir + 'testfile.txt'
-
-  return fsPromises.mkdir(dir, { recursive: true })
-    .then(() => console.log('Directory exists or created.'))
-    .then(() => {
-      console.log('Now that the directory exists, I can do something with it.')
-      console.log('Checking for the testfile.')
-      return fsPromises.stat(testFilePath)
-    })
-    .then((stats) => console.log('The testfile does exist already.'))
-    .catch((err) => {
-      console.log('Testfile does not exist: ' + err)
-      console.log('Creating...')
-      const testFileContent = 'Some nonsense string'
-      return fsPromises.writeFile(testFilePath, testFileContent)
-    })
-}
-
-const createDocument = async () => {
-  const docsDir = './static/documents/'
-  const dirPromise = ensureDirectoryExistence(docsDir)
-}
+const storeDocuments = require('./node/store-docs')
 
 const createTagPages = async (graphql, actions) => {
   return await graphql(`
@@ -64,7 +40,7 @@ const createTagPages = async (graphql, actions) => {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-  await createDocument()
+  await storeDocuments('./static/documents')
 
   // Automatically create pages from Wagtail pages
   await createWagtailPages(
