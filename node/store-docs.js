@@ -21,8 +21,8 @@ const ensureDirectoryExistence = async (dir) => {
   }
 }
 
-const storeDocuments = async (dir) => {
+const storeWagtailDocuments = async (dir) => {
   await ensureDirectoryExistence(dir)
 }
 
-module.exports = storeDocuments
+exports.storeWagtailDocuments = storeWagtailDocuments

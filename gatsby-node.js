@@ -8,11 +8,11 @@
 const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const storeDocuments = require('./node/store-docs')
+const { storeWagtailDocuments } = require('./node/store-docs')
 const createTagPages = require('./node/tagpages')
 
 exports.createPages = async ({ graphql, actions }) => {
-  await storeDocuments('./static/documents')
+  await storeWagtailDocuments('./static/documents')
 
   // Automatically create pages from Wagtail pages
   await createWagtailPages(
