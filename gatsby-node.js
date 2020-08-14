@@ -5,38 +5,11 @@
  */
 
 // You can delete this file if you're not using it
-const path = require('path')
 const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const storeDocuments = require('./node/store-docs')
-
-const createTagPages = async (graphql, actions) => {
-  const response = await graphql(`
-    query {
-      wagtail {
-        tags {
-          id
-          name
-          slug
-        }
-      }
-    }
-  `)
-
-  const { createPage } = actions
-  const tags = response.data.wagtail.tags
-
-  await tags.forEach(tag => {
-    createPage({
-      path: `tags/${tag.slug}`,
-      component: path.resolve('./src/templates/tagindexpage.jsx'),
-      context: {
-        tagId: tag.id
-      }
-    })
-  })
-}
+const createTagPages = require('./node/tagpages')
 
 exports.createPages = async ({ graphql, actions }) => {
   await storeDocuments('./static/documents')
