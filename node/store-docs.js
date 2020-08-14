@@ -1,5 +1,20 @@
+const fs = require('fs')
 const fsPromises = require('fs').promises
 const path = require('path')
+const crypto = require('crypto')
+
+// Function to generate a hash string from a file path. Ruthlessly copied from:
+// https://stackoverflow.com/a/44643479/6771403
+const getFileHash = (hashName, path) => {
+  return new Promise((resolve, reject) => {
+    const hash = crypto.createHash(hashName)
+    const stream = fs.createReadStream(path)
+    stream.on('error', err => reject(err))
+    stream.on('data', chunk => hash.update(chunk))
+    stream.on('end', () => resolve(hash.digest('hex')))
+  })
+}
+exports.getFileHash = getFileHash
 
 const ensureDirectoryExistence = async (dir) => {
   console.log('Checking for directory existence: ' + dir)
