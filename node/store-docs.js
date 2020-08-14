@@ -16,6 +16,11 @@ const getFileHash = (hashName, path) => {
 }
 exports.getFileHash = getFileHash
 
+const removeExistingFilesFromArray = (fileArray) => {
+  return fileArray
+}
+exports.removeExistingFilesFromArray = removeExistingFilesFromArray
+
 const ensureDirectoryExistence = async (dir) => {
   console.log('Checking for directory existence: ' + dir)
   const testFilePath = path.resolve(dir, 'testfile.txt')
