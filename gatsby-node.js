@@ -10,20 +10,29 @@ const fsPromises = require('fs').promises
 const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const createDocument = async () => {
-  const docsDir = './static/documents/'
-  console.log('Checking for document directory...')
-  fsPromises.mkdir(docsDir)
-    .then(() => console.log('Document dir created...'))
-    .catch(() => console.log('Document dir exists already...'))
+const ensureDirectoryExistence = (dir) => {
+  console.log('Checking for directory existence: ' + dir)
+  const testFilePath = dir + 'testfile.txt'
+
+  return fsPromises.mkdir(dir, { recursive: true })
+    .then(() => console.log('Directory exists or created.'))
     .then(() => {
-      console.log('Now that the document directory exists, I can do something with it.')
+      console.log('Now that the directory exists, I can do something with it.')
+      console.log('Checking for the testfile.')
+      return fsPromises.stat(testFilePath)
+    })
+    .then((stats) => console.log('The testfile does exist already.'))
+    .catch((err) => {
+      console.log('Testfile does not exist: ' + err)
+      console.log('Creating...')
       const testFileContent = 'Some nonsense string'
-      const testFilePath = docsDir + 'testfile.txt'
       return fsPromises.writeFile(testFilePath, testFileContent)
     })
-    .then(() => console.log('Wrote the file'))
-    .catch((err) => console.log('Something went wrong: ' + err))
+}
+
+const createDocument = async () => {
+  const docsDir = './static/documents/'
+  const dirPromise = ensureDirectoryExistence(docsDir)
 }
 
 const createTagPages = async (graphql, actions) => {
