@@ -4,11 +4,13 @@
 	command = "npm run build"
 
 [[redirects]]
-	from = "/cms"
-	to = "https://testcms.lpld.io/:splat"
+	from = "/cms/*"
+	to = "https://testcms.lpld.io/cms/:splat"
 	status = 200
+	force = true
 
 [[redirects]]
-	from = "/media"
-	to = "https://testcms.lpld.io/:splat"
+	from = "/media/*"
+	to = "https://testcms.lpld.io/media/:splat"
 	status = 200
+	force = true
