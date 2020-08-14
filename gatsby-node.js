@@ -6,8 +6,20 @@
 
 // You can delete this file if you're not using it
 const path = require('path')
+const fs = require('fs')
 const { createWagtailPages } = require('gatsby-source-wagtail/pages.js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const createDocument = async () => {
+  const testFileContent = 'Some nonsense string'
+  await fs.writeFile('./static/testfile.txt', testFileContent, (err) => {
+    if (err) {
+      throw err
+    } else {
+      console.log('Create')
+    }
+  })
+}
 
 const createTagPages = async (graphql, actions) => {
   return await graphql(`
@@ -38,6 +50,8 @@ const createTagPages = async (graphql, actions) => {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
+  await createDocument()
+
   // Automatically create pages from Wagtail pages
   await createWagtailPages(
     {
@@ -54,6 +68,7 @@ exports.createPages = async ({ graphql, actions }) => {
       'fragments/streamfield.js'
     ]
   )
+
   // Create pages that are not represented in Wagtail
   await createTagPages(graphql, actions)
 }
