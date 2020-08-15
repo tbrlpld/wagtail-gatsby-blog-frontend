@@ -16,8 +16,21 @@ const getFileHash = (hashName, path) => {
 }
 exports.getFileHash = getFileHash
 
-const removeExistingFilesFromArray = (fileArray) => {
-  return fileArray
+const removeExistingFilesFromArray = async (fileArray) => {
+  const reducedArray = []
+
+  for (const file of fileArray) {
+    try {
+      await fsPromises.stat(file.filePath)
+    } catch (err) {
+      console.log('File does NOT exist: ' + file.filePath)
+      reducedArray.push(file)
+      continue
+    }
+    console.log('File DOES exist: ' + file.filePath)
+  }
+
+  return reducedArray
 }
 exports.removeExistingFilesFromArray = removeExistingFilesFromArray
 

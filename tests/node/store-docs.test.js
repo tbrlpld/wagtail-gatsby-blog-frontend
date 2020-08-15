@@ -33,6 +33,7 @@ describe('File array', () => {
     }
     const fileArray = [existingFile, notExistingFile]
     const reducedArray = await storeDocs.removeExistingFilesFromArray(fileArray)
-    expect(reducedArray).toEqual([notExistingFile])
+    expect(reducedArray).toContain(notExistingFile)
+    expect(reducedArray).not.toContain(existingFile)
   })
 })
