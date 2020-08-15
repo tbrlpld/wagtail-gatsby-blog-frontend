@@ -18,18 +18,19 @@ exports.getFileHash = getFileHash
 
 const removeExistingFilesFromArray = async (fileArray) => {
   const reducedArray = []
-
   for (const file of fileArray) {
     try {
       await fsPromises.stat(file.filePath)
     } catch (err) {
-      console.log('File does NOT exist: ' + file.filePath)
       reducedArray.push(file)
       continue
     }
-    console.log('File DOES exist: ' + file.filePath)
+    // For existing files, check if the local hash is the expected one.
+    const localHash = await getFileHash('sha1', file.filePath)
+    if (localHash !== file.fileHash) {
+      reducedArray.push(file)
+    }
   }
-
   return reducedArray
 }
 exports.removeExistingFilesFromArray = removeExistingFilesFromArray
