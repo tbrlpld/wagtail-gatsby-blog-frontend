@@ -12,7 +12,7 @@ const { storeWagtailDocuments } = require('./node/store-docs')
 const createTagPages = require('./node/tagpages')
 
 exports.createPages = async ({ graphql, actions }) => {
-  await storeWagtailDocuments('./static/documents')
+  await storeWagtailDocuments('./static', graphql)
 
   // Automatically create pages from Wagtail pages
   await createWagtailPages(

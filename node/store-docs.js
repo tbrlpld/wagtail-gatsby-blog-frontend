@@ -55,8 +55,25 @@ const ensureDirectoryExistence = async (dir) => {
   }
 }
 
-const storeWagtailDocuments = async (dir) => {
-  await ensureDirectoryExistence(dir)
+const storeWagtailDocuments = async (storageDir, graphql) => {
+  const documentsResponse = graphql(`
+    query {
+      wagtail {
+        documents {
+          id
+          file
+          fileHash
+        }
+      }
+    }
+  `)
+  const ensuredStorageDirExistence = ensureDirectoryExistence(storageDir)
+  const results = await Promise.all([documentsResponse, ensuredStorageDirExistence])
+  const wagtailDocuments = results[0].data.wagtail.documents
+
+  wagtailDocuments.map((doc) => {
+    console.log(path.resolve(storageDir, doc.file))
+  })
 }
 
 exports.storeWagtailDocuments = storeWagtailDocuments
