@@ -55,6 +55,17 @@ const ensureDirectoryExistence = async (dir) => {
   }
 }
 
+const extractWagtailBaseURL = (wagtailURL) => {
+  const url = new URL(wagtailURL)
+  return url.origin
+}
+
+const makeWagtailDocumentURL = (wagtailBaseURL, wagtailDocumentPath) => {
+  const mediaDocumentPath = path.join('media', wagtailDocumentPath)
+  const docURL = new URL(mediaDocumentPath, wagtailBaseURL)
+  return docURL.toString()
+}
+
 const storeWagtailDocuments = async (storageDir, graphql) => {
   const documentsResponse = graphql(`
     query {
@@ -65,15 +76,27 @@ const storeWagtailDocuments = async (storageDir, graphql) => {
           fileHash
         }
       }
+      sitePlugin(name: {eq: "gatsby-source-wagtail"}) {
+        pluginOptions {
+          url
+        }
+      }
     }
   `)
   const ensuredStorageDirExistence = ensureDirectoryExistence(storageDir)
   const results = await Promise.all([documentsResponse, ensuredStorageDirExistence])
   const wagtailDocuments = results[0].data.wagtail.documents
+  const wagtailBaseURL = extractWagtailBaseURL(results[0].data.sitePlugin.pluginOptions.url)
 
-  wagtailDocuments.map((doc) => {
-    console.log(path.resolve(storageDir, doc.file))
+  const wagtailDocumentFiles = wagtailDocuments.map((doc) => {
+    return {
+      filePath: path.resolve(storageDir, doc.file),
+      fileHash: doc.fileHash,
+      wagtailDocumentURL: makeWagtailDocumentURL(wagtailBaseURL, doc.file)
+    }
   })
+  const notExistingDocumentFiles = await removeExistingFilesFromArray(wagtailDocumentFiles)
+  console.log(notExistingDocumentFiles)
 }
 
 exports.storeWagtailDocuments = storeWagtailDocuments
