@@ -12,20 +12,15 @@ export default function DocumentLink ({ documentId, children }) {
           file
         }
       }
-      sitePlugin(name: {eq: "gatsby-source-wagtail"}) {
-        pluginOptions {
-          url
-        }
-      }
     }
   `)
   const docs = data.wagtail.documents
-  const doc = docs.filter((doc) => doc.id === documentId).shift()
+  const doc = docs.filter((doc) => doc.id === documentId)[0]
   if (doc) {
-    const graphQLEndpointURL = new URL(data.sitePlugin.pluginOptions.url)
-    const backendURL = new URL(graphQLEndpointURL.origin)
-    const fileURL = new URL('media/' + doc.file, backendURL)
-    return <a href={fileURL.href} className={style.docLink} target='_blank' rel='noopener noreferrer'>{children}</a>
+    if (!doc.file.startsWith('/')) {
+      doc.file = '/' + doc.file
+    }
+    return <a href={doc.file} className={style.docLink} target='_blank' rel='noopener noreferrer'>{children}</a>
   } else {
     return null
   }

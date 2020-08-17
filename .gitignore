@@ -67,3 +67,7 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+# Static, only because I currently do not need them and I am working on 
+# a script to load documents into the static directory.
+static
