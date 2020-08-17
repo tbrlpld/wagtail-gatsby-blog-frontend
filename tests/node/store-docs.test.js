@@ -54,7 +54,7 @@ describe('File array reduction', () => {
 
 describe('Download file', () => {
   // jest.setTimeout(10000)
-  it.only('without directories is saved locally.', async () => {
+  it('without additional in path directories is saved locally.', async () => {
     const tmpDir = await fsPromises.mkdtemp(path.join(os.tmpdir(), 'test-'))
 
     const fileToStore = {
@@ -68,6 +68,21 @@ describe('Download file', () => {
 
     await fsPromises.unlink(fileToStore.filePath)
     await fsPromises.rmdir(tmpDir)
+
+    expect(stats.isFile()).toBe(true)
+  })
+
+  it('with additional in path directories is saved locally.', async () => {
+    const tmpDir = await fsPromises.mkdtemp(path.join(os.tmpdir(), 'test-'))
+
+    const fileToStore = {
+      filePath: path.join(tmpDir, '/some/more/dir/example.svg'),
+      fileSourceURL: 'https://lpld.io/image/logo.svg'
+    }
+
+    await storeDocs.storeFile(fileToStore)
+
+    const stats = await fsPromises.stat(fileToStore.filePath)
 
     expect(stats.isFile()).toBe(true)
   })
