@@ -68,7 +68,20 @@ const ensureDirectoryExistence = async (dir) => {
   }
 }
 
+/**
+ * Download file from source and store to path.
+ *
+ * @param {Object} file - Object representing a file with an URL source that is
+ *     to be stored in a given path. The object need the properties `fileSourceURL`
+ *     and 'filePath'. `fileSourceURL` is the online source from which the file
+ *     shall be retrieved. `filePath` is the local path where the file should be
+ *     stored.
+ *
+ */
 const storeFile = async (file) => {
+  const fileDir = path.dirname(file.filePath)
+  await fsPromises.mkdir(fileDir, { recursive: true })
+
   const fileWriter = fs.createWriteStream(file.filePath)
 
   const response = await axios({
@@ -111,7 +124,9 @@ const storeWagtailDocuments = async (storageDir, graphql) => {
     }
   })
   const filesToSave = await removeExistingFilesFromArray(wagtailDocumentFiles)
-  console.log(filesToSave)
-}
 
+  const fileSavingPromises = filesToSave.map((file) => storeFile(file))
+
+  await Promise.all(fileSavingPromises)
+}
 exports.storeWagtailDocuments = storeWagtailDocuments
