@@ -41,7 +41,7 @@
     "start-dirty": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "jest"
+    "test": "jest --env=node"
   },
   "repository": {
     "type": "git",

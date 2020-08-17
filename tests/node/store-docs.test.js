@@ -1,6 +1,8 @@
 /* eslint-env jest */
-const path = require('path')
+const fs = require('fs')
 const fsPromises = require('fs').promises
+const os = require('os')
+const path = require('path')
 
 const storeDocs = require('../../node/store-docs')
 
@@ -47,5 +49,26 @@ describe('File array reduction', () => {
     const reducedArray = await storeDocs.removeExistingFilesFromArray(fileArray)
     expect(reducedArray).toContain(existingFileWithDifferentHash)
     expect(reducedArray).not.toContain(existingFile)
+  })
+})
+
+describe('Download file', () => {
+  // jest.setTimeout(10000)
+  it.only('without directories is saved locally.', async () => {
+    const tmpDir = await fsPromises.mkdtemp(path.join(os.tmpdir(), 'test-'))
+
+    const fileToStore = {
+      filePath: path.join(tmpDir, 'example.svg'),
+      fileSourceURL: 'https://lpld.io/image/logo.svg'
+    }
+
+    await storeDocs.storeFile(fileToStore)
+
+    const stats = await fsPromises.stat(fileToStore.filePath)
+
+    await fsPromises.unlink(fileToStore.filePath)
+    await fsPromises.rmdir(tmpDir)
+
+    expect(stats.isFile()).toBe(true)
   })
 })

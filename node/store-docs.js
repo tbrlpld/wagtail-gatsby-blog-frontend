@@ -3,6 +3,8 @@ const fsPromises = require('fs').promises
 const path = require('path')
 const crypto = require('crypto')
 
+const axios = require('axios')
+
 // Function to generate a hash string from a file path. Ruthlessly copied from:
 // https://stackoverflow.com/a/44643479/6771403
 const getFileHash = (hashName, path) => {
@@ -16,6 +18,17 @@ const getFileHash = (hashName, path) => {
 }
 exports.getFileHash = getFileHash
 
+/**
+ * Removes objects that represent existing files from an array.
+ *
+ * A file is considered to exist of a file exists in the given `filePath` and the `fileHash`
+ * matches.The files are defined as plain `Objects` with the properties `filePath` and `fileHash`.
+ *
+ * @param {Object[]} fileArray - Array of objects describing a file. The objects should at least
+ *     contain the properties `filePath` and `fileHash`. `filePath` is the local path to the file.
+ *     `fileHash` is the "sha1" has of the file.
+ *
+ */
 const removeExistingFilesFromArray = async (fileArray) => {
   const reducedArray = []
   for (const file of fileArray) {
@@ -55,48 +68,50 @@ const ensureDirectoryExistence = async (dir) => {
   }
 }
 
-const extractWagtailBaseURL = (wagtailURL) => {
-  const url = new URL(wagtailURL)
-  return url.origin
-}
+const storeFile = async (file) => {
+  const fileWriter = fs.createWriteStream(file.filePath)
 
-const makeWagtailDocumentURL = (wagtailBaseURL, wagtailDocumentPath) => {
-  const mediaDocumentPath = path.join('media', wagtailDocumentPath)
-  const docURL = new URL(mediaDocumentPath, wagtailBaseURL)
-  return docURL.toString()
+  const response = await axios({
+    url: file.fileSourceURL,
+    method: 'get',
+    responseType: 'stream'
+  })
+
+  response.data.pipe(fileWriter)
+
+  return new Promise((resolve, reject) => {
+    fileWriter.on('finish', resolve)
+    fileWriter.on('error', reject)
+  })
 }
+exports.storeFile = storeFile
 
 const storeWagtailDocuments = async (storageDir, graphql) => {
   const documentsResponse = graphql(`
     query {
       wagtail {
-        documents {
+        documents: documentsExtended {
           id
           file
           fileHash
-        }
-      }
-      sitePlugin(name: {eq: "gatsby-source-wagtail"}) {
-        pluginOptions {
-          url
+          src
         }
       }
     }
   `)
   const ensuredStorageDirExistence = ensureDirectoryExistence(storageDir)
   const results = await Promise.all([documentsResponse, ensuredStorageDirExistence])
-  const wagtailDocuments = results[0].data.wagtail.documents
-  const wagtailBaseURL = extractWagtailBaseURL(results[0].data.sitePlugin.pluginOptions.url)
 
+  const wagtailDocuments = results[0].data.wagtail.documents
   const wagtailDocumentFiles = wagtailDocuments.map((doc) => {
     return {
       filePath: path.resolve(storageDir, doc.file),
       fileHash: doc.fileHash,
-      wagtailDocumentURL: makeWagtailDocumentURL(wagtailBaseURL, doc.file)
+      fileSourceURL: doc.src
     }
   })
-  const notExistingDocumentFiles = await removeExistingFilesFromArray(wagtailDocumentFiles)
-  console.log(notExistingDocumentFiles)
+  const filesToSave = await removeExistingFilesFromArray(wagtailDocumentFiles)
+  console.log(filesToSave)
 }
 
 exports.storeWagtailDocuments = storeWagtailDocuments
